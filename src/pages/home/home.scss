@@ -115,6 +115,7 @@
         }
 
         figcaption {
+          font-weight: 300;
         }
       }
     }
@@ -199,6 +200,10 @@
 
         .post {
           color: #252525;
+
+          p {
+            font-weight: 300;
+          }
         }
 
         .post:nth-child(2) {

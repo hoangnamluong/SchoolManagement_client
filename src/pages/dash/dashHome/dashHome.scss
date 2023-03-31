@@ -1,0 +1,36 @@
+@import "../../../assets/variables";
+.dash-home__inner {
+  position: relative;
+
+  h2 {
+    position: relative;
+
+    &::before {
+      position: absolute;
+      content: "";
+      height: 3px;
+      width: 8em;
+      background-color: $primary;
+      bottom: 0;
+      left: 0;
+    }
+  }
+
+  .dash-home__title {
+    min-height: 25dvh;
+
+    img {
+      position: absolute;
+      width: auto;
+      height: 14em;
+      z-index: -1;
+      top: -40px;
+      left: -60px;
+    }
+
+    h1 {
+      padding: 30px 0 0 150px;
+      margin: 0;
+    }
+  }
+}

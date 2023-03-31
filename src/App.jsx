@@ -5,10 +5,10 @@ import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import { ToastContainer } from "react-toastify";
 import FullPageLayout from "./components/Layout/FullPageLayout/FullPageLayout";
-import { Container } from "react-bootstrap";
-import Header from "./components/Layout/Header/Header";
-import Footer from "./components/Layout/Footer/Footer";
 import ToTop from "./components/misc/ToTop";
+import DashLayout from "./components/Layout/Dash/DashLayout";
+import PublicLayout from "./components/Layout/PublicLayout/PublicLayout";
+import DashHome from "./pages/dash/dashHome/DashHome";
 
 function App() {
   return (
@@ -26,15 +26,22 @@ function App() {
         theme="light"
       />
       <Routes>
+        {/* Public */}
         <Route element={<FullPageLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Route>
-        <Route element={<Header />}>
+
+        <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
         </Route>
+
+        {/* Private */}
+        <Route path="/dash" element={<DashLayout />}>
+          <Route index element={<DashHome />} />
+        </Route>
+        {/* Dash end */}
       </Routes>
-      <Footer />
       <ToTop />
     </>
   );
