@@ -1,0 +1,220 @@
+@import "../../assets/variables";
+
+.home {
+  position: relative;
+
+  .home__hero {
+    position: relative;
+    min-height: 100dvh;
+
+    .home__inner {
+      .hero__content {
+        position: absolute;
+        text-align: center;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: $complementary;
+
+        h1 {
+          font-size: 3em;
+          margin-bottom: 50px;
+        }
+
+        p {
+          margin-bottom: 50px;
+        }
+      }
+
+      img {
+        position: absolute;
+        width: 30dvh;
+        height: auto;
+      }
+
+      .hero__image-1 {
+        transform: rotate(5deg);
+        left: 10dvh;
+        top: 20dvh;
+      }
+
+      .hero__image-2 {
+        transform: rotate(-10deg);
+        left: 0;
+        bottom: 10dvh;
+      }
+
+      .hero__image-3 {
+        transform: rotate(-2deg);
+        right: 0;
+        top: 20dvh;
+      }
+
+      .hero__image-4 {
+        transform: rotate(5deg);
+        right: 10dvh;
+        bottom: 10dvh;
+      }
+
+      svg {
+        position: absolute;
+        color: $complementary;
+        font-size: 3em;
+      }
+    }
+  }
+
+  .intersecting-img {
+    position: absolute;
+    top: 70dvh;
+    left: 50%;
+    transform: translate(-50%, 0);
+    height: auto;
+    width: 40rem;
+    opacity: 0;
+    transition: $ease-in-out-slower;
+
+    &.show {
+      top: 72dvh;
+      opacity: 1;
+      transition: $ease-in-out-slower;
+    }
+  }
+
+  .section-2__inner {
+    gap: 100px;
+
+    .section-2__cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px 80px;
+
+      figure {
+        border-radius: 10px;
+        text-align: center;
+        width: 350px;
+        height: 400px;
+        padding: 20px;
+        margin: 0;
+
+        h3 {
+          color: $primary-sub;
+          font-size: 1.5em;
+        }
+
+        img {
+          width: calc(100% - 100px);
+          height: auto;
+        }
+
+        &:nth-child(n + 3) {
+          img {
+            width: calc(100% - 200px);
+            margin: 50px;
+          }
+        }
+
+        figcaption {
+        }
+      }
+    }
+
+    .section-2__content {
+      align-self: baseline;
+      margin: 10rem 0;
+
+      h1 {
+        font-family: $sans;
+        color: $primary;
+        font-size: 4em;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .section-3__inner {
+    display: flex;
+    column-gap: 10rem;
+    min-height: 60dvh;
+    max-height: 80dvh;
+
+    .section-3__about {
+      flex: 1;
+
+      h1 {
+        position: relative;
+        font-size: 1.5em;
+      }
+
+      h1 + p {
+        position: relative;
+        font-family: $sans;
+        font-weight: bold;
+        margin-top: -20px;
+        font-size: 3em;
+        color: $primary;
+      }
+    }
+
+    .section-3__img {
+      position: relative;
+      background-image: url("../../assets/img/ivan-aleksic-PDRFeeDniCk-unsplash.png");
+      flex: 1;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      border-radius: 10px;
+
+      &::before {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        content: "";
+        border: 10px solid #000;
+        top: -30px;
+        right: -30px;
+        z-index: -1;
+        border-radius: inherit;
+      }
+    }
+  }
+
+  .section-4 {
+    .section-4__inner {
+      min-height: 60dvh;
+      max-height: 70dvh;
+
+      h1 {
+        position: relative;
+        color: $secondary;
+        font-size: 3em;
+        margin-bottom: 4rem;
+        text-decoration: underline;
+      }
+
+      .section-4__posts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 100px;
+
+        .post {
+          color: #252525;
+        }
+
+        .post:nth-child(2) {
+          background-color: $secondary;
+          color: $complementary;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .section-2__inner {
+    .section-2__cards {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

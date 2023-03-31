@@ -1,0 +1,15 @@
+@import "../../assets/variables";
+
+.to-top-btn {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  opacity: 0;
+
+  &.show {
+    opacity: 1;
+  }
+}
