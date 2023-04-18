@@ -54,6 +54,25 @@
             font-weight: 300;
             border-radius: 10px;
 
+            &.active {
+              span {
+                background-color: $secondary;
+
+                svg {
+                  z-index: 1;
+                }
+
+                &::after {
+                  position: absolute;
+                  background-color: $complementary;
+                  width: 70%;
+                  height: 70%;
+                  content: "";
+                  border-radius: 15px;
+                }
+              }
+            }
+
             a {
               display: grid;
               grid-template-columns: 1fr 3fr;
@@ -84,26 +103,32 @@
       }
 
       .sidebar__user-info {
-        display: flex;
-        gap: 20px;
-        background-color: $secondary;
-        color: $complementary;
-        padding: 10px;
-        flex-wrap: nowrap;
-        align-items: center;
-        overflow-x: hidden;
-        border-radius: 10px;
+        a {
+          display: flex;
+          gap: 20px;
+          background-color: $secondary;
+          color: $complementary;
+          padding: 10px;
+          flex-wrap: nowrap;
+          align-items: center;
+          overflow-x: hidden;
+          border-radius: 10px;
 
-        &:hover {
-          img {
-            animation: shake 0.2s forwards;
+          &:hover {
+            img {
+              animation: shake 0.2s forwards;
+            }
+          }
+
+          p {
+            margin: 0;
+            font-size: 1em;
           }
         }
-
-        p {
-          margin: 0;
-          font-size: 1em;
-        }
+      }
+      button {
+        display: block;
+        margin: 10px 0 0 auto;
       }
     }
   }

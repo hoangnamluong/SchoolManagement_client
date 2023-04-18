@@ -5,6 +5,10 @@ import CoursesList from "../../../components/Course/CoursesList";
 //scss
 import "./dashHome.scss";
 
+//hooks
+import { useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+
 const DashHome = () => {
   return (
     <div className="dash-home">

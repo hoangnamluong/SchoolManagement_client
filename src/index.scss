@@ -72,6 +72,29 @@ button {
     transform: scale(1.05);
     transition: $ease-in-out;
   }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.error-message {
+  font-size: 0.9em;
+  background-color: red;
+  color: $complementary;
+  padding: 5px;
+  text-align: center;
+  border-radius: 14px;
+  margin: 10px;
+}
+
+.password-requirement {
+  svg[data-testid="CheckCircleIcon"] {
+    color: green;
+  }
+  svg[data-testid="CancelIcon"] {
+    color: red;
+  }
 }
 
 .custom-container {

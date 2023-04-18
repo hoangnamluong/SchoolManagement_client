@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 //icon
 import HomeIcon from "@mui/icons-material/Home";
@@ -9,27 +9,41 @@ import PersonIcon from "@mui/icons-material/Person";
 import Avatar from "../../User/Avatar";
 
 //pics
-import AvatarPic from "../../../assets/img/profile-pic.png";
+import Logout from "../../misc/Logout";
+
+//hooks
+import useAuthSelector from "../../../hooks/Selectors/useAuthSelector";
 
 const items = [
   {
     title: "Home",
+    path: "/user/home",
     icon: <HomeIcon />,
   },
   {
     title: "Courses",
+    path: "/user/course",
     icon: <SchoolIcon />,
   },
   {
-    title: "Profiles",
+    title: "Profile",
+    path: "/user/profile",
     icon: <PersonIcon />,
   },
 ];
 
 const DashSidebar = () => {
+  const { pathname } = useLocation();
+
+  const { userInfo } = useAuthSelector();
+  const { image, username } = userInfo;
+
   const navItemsRender = items.map((item) => (
-    <li key={item.title.toLowerCase()}>
-      <Link>
+    <li
+      key={item.title.toLowerCase()}
+      className={pathname === item.path ? "active" : ""}
+    >
+      <Link to={item.path}>
         <span>{item.icon}</span>
         {item.title}
       </Link>
@@ -43,10 +57,13 @@ const DashSidebar = () => {
           <h1>Brand</h1>
           <ul>{navItemsRender}</ul>
         </div>
-        <Link className="sidebar__user-info">
-          <Avatar img={AvatarPic} />
-          <p>Username</p>
-        </Link>
+        <div className="sidebar__user-info">
+          <Link>
+            <Avatar img={image} alt="User" />
+            <p>{username}</p>
+          </Link>
+          <Logout />
+        </div>
       </div>
     </div>
   );

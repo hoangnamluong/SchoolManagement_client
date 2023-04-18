@@ -9,6 +9,10 @@ import ToTop from "./components/misc/ToTop";
 import DashLayout from "./components/Layout/Dash/DashLayout";
 import PublicLayout from "./components/Layout/PublicLayout/PublicLayout";
 import DashHome from "./pages/dash/dashHome/DashHome";
+import PersistsLogin from "./components/auth/PersistsLogin";
+import RequiredAuth from "./components/auth/RequiredAuth";
+
+//lazy
 
 function App() {
   return (
@@ -28,17 +32,23 @@ function App() {
       <Routes>
         {/* Public */}
         <Route element={<FullPageLayout />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
         </Route>
 
-        <Route element={<PublicLayout />}>
-          <Route path="/" element={<Home />} />
+        <Route path="" element={<PublicLayout />}>
+          <Route index element={<Home />} />
         </Route>
 
         {/* Private */}
-        <Route path="/dash" element={<DashLayout />}>
-          <Route index element={<DashHome />} />
+        <Route element={<PersistsLogin />}>
+          <Route element={<RequiredAuth />}>
+            <Route path="user" element={<DashLayout />}>
+              <Route path="home" element={<DashHome />} />
+              <Route path="course" element={<></>} />
+              <Route path="profile" element={<></>} />
+            </Route>
+          </Route>
         </Route>
         {/* Dash end */}
       </Routes>

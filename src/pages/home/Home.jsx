@@ -1,8 +1,5 @@
 import "./home.scss";
 
-//json data
-import JsonData from "../../data/data.json";
-
 //material icon
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import BiotechIcon from "@mui/icons-material/Biotech";
@@ -24,7 +21,7 @@ import Health from "../../assets/svg/google-fit-svgrepo-com.svg";
 
 //built-in hooks and components
 import { Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 //custom hooks
 import useInView from "../../hooks/useInView";
@@ -159,9 +156,9 @@ const Home = () => {
           <div className="hero__content">
             <h1>Brand</h1>
             <p>{text}</p>
-            <button className="secondary-btn">
-              <Link to="/signup">GET STARTED</Link>
-            </button>
+            <Link to="/signup">
+              <button className="secondary-btn">GET STARTED</button>
+            </Link>
           </div>
           {heroImageRender}
           {iconRender}

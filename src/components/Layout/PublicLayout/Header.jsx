@@ -1,8 +1,13 @@
+//react router
 import { Link, Outlet } from "react-router-dom";
-import "./header.scss";
-import { useEffect, useState } from "react";
 
-const navbarItemList = ["Home", "Enrollment", "News", "About", "Login"];
+//hooks
+import { useEffect } from "react";
+
+//css
+import "./header.scss";
+
+const navbarItemList = ["Home", "Enrollment", "News", "About"];
 
 const Header = () => {
   useEffect(() => {
@@ -39,15 +44,20 @@ const Header = () => {
         <h2>Brand</h2>
         <ul>
           {navbarItemRender}
-          <button className="secondary-btn">
-            <Link to="/signup">GET STARTED</Link>
-          </button>
+          <li>
+            <Link to={`/login`}>Login</Link>
+          </li>
+          <Link to="/signup">
+            <button className="secondary-btn">GET STARTED</button>
+          </Link>
         </ul>
       </nav>
 
-      <button className="secondary-btn btn-on-scroll" id="btn-on-scroll">
-        <Link to="/signup">GET STARTED</Link>
-      </button>
+      <Link to="/signup">
+        <button className="secondary-btn btn-on-scroll" id="btn-on-scroll">
+          GET STARTED
+        </button>
+      </Link>
 
       <Outlet />
     </>

@@ -80,8 +80,29 @@
   }
 }
 
-@media screen and (max-width: 991.98px) {
+@media screen and (max-width: 1080px) {
   .img {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 427px) {
+  .google-full {
+    display: none;
+  }
+  .google-short {
+    display: block;
+  }
+  .auth-form {
+    padding: 20px !important;
+  }
+}
+
+@media screen and (min-width: 427px) {
+  .google-full {
+    display: block;
+  }
+  .google-short {
     display: none;
   }
 }
