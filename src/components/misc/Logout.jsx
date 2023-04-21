@@ -13,14 +13,13 @@ const Logout = () => {
 
   const handleClick = (e) => {
     Cookies.remove("refresh_token");
-    dispatch(clearUser());
-    dispatch(logout());
+    dispatch({ type: "USER_LOGOUT" });
     toast.success("Logout success!");
     navigate("/", { replace: true });
   };
 
   return (
-    <button onClick={handleClick} className="secondary-btn">
+    <button onClick={handleClick} className="secondary-btn fw-300">
       <LogoutIcon /> Logout
     </button>
   );

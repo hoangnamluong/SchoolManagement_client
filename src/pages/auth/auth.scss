@@ -2,7 +2,7 @@
 .auth {
   background-color: #eee;
   width: 100%;
-  height: 70dvh;
+  height: 80dvh;
   border-radius: 10px;
   position: absolute;
   top: 50%;
@@ -25,14 +25,14 @@
 
       svg {
         font-size: 1.5em;
-        color: $secondary;
+        color: #555;
       }
     }
 
     h2 {
       position: relative;
       font-size: 2em;
-      font-weight: 300;
+      font-weight: 400;
 
       &::before {
         position: absolute;

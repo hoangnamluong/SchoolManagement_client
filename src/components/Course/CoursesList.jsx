@@ -29,12 +29,10 @@ const CoursesList = () => {
     };
   }, []);
 
-  console.log(courses);
-
   const coursesList = courses.map((course) => (
-    <Link key={course.id}>
+    <div key={course.id}>
       <CourseExcerpt course={course} />
-    </Link>
+    </div>
   ));
 
   return (

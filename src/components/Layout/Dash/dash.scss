@@ -51,7 +51,6 @@
             margin: 20px 0;
             background-color: $secondary;
             color: $complementary;
-            font-weight: 300;
             border-radius: 10px;
 
             &.active {
@@ -134,6 +133,6 @@
   }
 
   .dash__inner {
-    padding: 50px 50px 50px 350px;
+    padding: 50px 50px 0 350px;
   }
 }

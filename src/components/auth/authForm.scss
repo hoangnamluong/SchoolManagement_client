@@ -18,10 +18,28 @@
     padding: 10px;
     border: 0;
     width: 100%;
-    font-size: 1.1em;
+    font-size: 1em;
+
+    &::placeholder {
+      font-weight: 400;
+      color: #888;
+    }
 
     &:focus {
       outline: none;
+    }
+
+    &[type="file"] {
+      cursor: pointer;
+
+      &::-webkit-file-upload-button {
+        cursor: pointer;
+        border: 1px solid $secondary;
+        border-radius: 12px;
+        padding: 0 12px;
+        color: $secondary;
+        font-weight: 500;
+      }
     }
   }
 
@@ -33,5 +51,66 @@
     width: 100%;
     height: 100%;
     z-index: -1;
+  }
+}
+
+.login-extra-actions {
+  margin: 10px 0 24px 0;
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+
+  .remember-me-button {
+    display: flex;
+    gap: 5px;
+    font-size: 0.9em;
+
+    input {
+      width: 20px;
+      height: 20px;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    input + label {
+      cursor: pointer;
+      position: relative;
+
+      &::before {
+        position: absolute;
+        content: "";
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+        border-radius: 50%;
+        background-color: $primary;
+        top: 50%;
+        transform: translate(-25px, -50%);
+        transition: $ease-in-out;
+      }
+
+      &::after {
+        position: absolute;
+        content: "";
+        width: 21px;
+        height: 21px;
+        border-radius: 50%;
+        top: 50%;
+        transform: translate(-130px, -50%);
+        border: 1px solid #ccc;
+      }
+    }
+
+    input:checked + label {
+      &::before {
+        transition: $ease-in-out;
+        opacity: 1;
+      }
+    }
+  }
+
+  p {
+    font-size: 0.9em !important;
+    margin: 0 !important;
   }
 }

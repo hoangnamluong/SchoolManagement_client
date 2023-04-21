@@ -14,23 +14,9 @@ import Logout from "../../misc/Logout";
 //hooks
 import useAuthSelector from "../../../hooks/Selectors/useAuthSelector";
 
-const items = [
-  {
-    title: "Home",
-    path: "/user/home",
-    icon: <HomeIcon />,
-  },
-  {
-    title: "Courses",
-    path: "/user/course",
-    icon: <SchoolIcon />,
-  },
-  {
-    title: "Profile",
-    path: "/user/profile",
-    icon: <PersonIcon />,
-  },
-];
+const COURSE_REGEX = /user\/courses/;
+const HOME_REGEX = /user\/home/;
+const PROFILE_REGEX = /user\/profile/;
 
 const DashSidebar = () => {
   const { pathname } = useLocation();
@@ -38,29 +24,42 @@ const DashSidebar = () => {
   const { userInfo } = useAuthSelector();
   const { image, username } = userInfo;
 
-  const navItemsRender = items.map((item) => (
-    <li
-      key={item.title.toLowerCase()}
-      className={pathname === item.path ? "active" : ""}
-    >
-      <Link to={item.path}>
-        <span>{item.icon}</span>
-        {item.title}
-      </Link>
-    </li>
-  ));
-
   return (
     <div className="dash__sidebar background-gradient">
       <div className="sidebar__inner">
         <div className="sidebar__items">
           <h1>Brand</h1>
-          <ul>{navItemsRender}</ul>
+          <ul>
+            <li className={HOME_REGEX.test(pathname) ? "active" : ""}>
+              <Link to={"/user/home"}>
+                <span>
+                  <HomeIcon />
+                </span>
+                Home
+              </Link>
+            </li>
+            <li className={COURSE_REGEX.test(pathname) ? "active" : ""}>
+              <Link to={"/user/courses"}>
+                <span>
+                  <SchoolIcon />
+                </span>
+                Courses
+              </Link>
+            </li>
+            <li className={PROFILE_REGEX.test(pathname) ? "active" : ""}>
+              <Link to={"/user/profile"}>
+                <span>
+                  <PersonIcon />
+                </span>
+                Profile
+              </Link>
+            </li>
+          </ul>
         </div>
         <div className="sidebar__user-info">
-          <Link>
-            <Avatar img={image} alt="User" />
-            <p>{username}</p>
+          <Link to={"/user/profile"}>
+            <Avatar img={image} username={username} />
+            <p className="fw-400">{username}</p>
           </Link>
           <Logout />
         </div>

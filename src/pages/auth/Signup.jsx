@@ -11,7 +11,10 @@ const Signup = () => {
           <SignupForm />
         </div>
         <p className="text-center">
-          Already have an account?&nbsp; <Link to="/login">Sign in</Link>
+          Already have an account?&nbsp;{" "}
+          <Link to="/login" className="fw-400">
+            Sign in
+          </Link>
         </p>
         <Link className="home-redirect" to="/">
           <HomeIcon />

@@ -2,12 +2,21 @@ import { toast } from "react-toastify";
 import useAuthSelector from "../../hooks/Selectors/useAuthSelector";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import SpinnerComponent from "../misc/SpinnerComponent";
+import usePersist from "../../hooks/usePersist";
 
 const RequiredAuth = () => {
   const { accessToken, status, refreshStatus } = useAuthSelector();
+  const [persist] = usePersist();
 
   let content = null;
-  if (status === "pending" || refreshStatus === "pending" || !accessToken) {
+  if (!persist && !accessToken) {
+    toast.info("If you want to stay logged in please tick Remember me");
+    content = <Navigate to={"/login"} replace={true} />;
+  } else if (
+    status === "pending" ||
+    refreshStatus === "pending" ||
+    !accessToken
+  ) {
     content = (
       <div className="m-4">
         <SpinnerComponent />

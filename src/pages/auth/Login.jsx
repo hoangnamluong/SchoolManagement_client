@@ -21,7 +21,10 @@ const Login = () => {
           </button>
         </div>
         <p className="text-center">
-          Create an acount?&nbsp; <Link to="/signup">Signup</Link>
+          Create an acount?&nbsp;{" "}
+          <Link to="/signup" className="fw-400">
+            Signup
+          </Link>
         </p>
         <Link className="home-redirect" to="/">
           <HomeIcon />

@@ -127,7 +127,7 @@
       h1 {
         font-family: $sans;
         color: $primary;
-        font-size: 4em;
+        font-size: 3em;
         font-weight: bold;
       }
     }
@@ -200,10 +200,6 @@
 
         .post {
           color: #252525;
-
-          p {
-            font-weight: 300;
-          }
         }
 
         .post:nth-child(2) {

@@ -1,0 +1,135 @@
+@import "../../../assets/variables";
+
+.course-detail__title {
+  display: flex;
+  gap: 50px;
+
+  .title__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .title__content-header {
+      p {
+        font-family: $roboto;
+      }
+    }
+  }
+
+  .title__hero {
+    position: relative;
+    height: 300px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    flex: 2;
+    border-radius: 10px;
+
+    &::before {
+      position: absolute;
+      content: "";
+      width: 100%;
+      height: 100%;
+      border: 10px solid $primary;
+      border-radius: 10px;
+      top: -20px;
+      right: -20px;
+      z-index: -1;
+    }
+  }
+}
+
+.course-detail__section {
+  position: relative;
+  display: flex;
+  max-width: 40%;
+  min-width: 200px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+
+  h3 {
+    position: relative;
+    margin: 0;
+  }
+
+  &::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 3px;
+    background-color: $primary;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.course-detail__topics {
+  .topics__title {
+    cursor: pointer;
+
+    &:hover {
+      background-color: #ddd;
+      border-radius: 10px 10px 0 0;
+    }
+  }
+
+  .topics__list {
+    overflow: hidden;
+    max-height: 0;
+    transition: $ease-in-out;
+
+    &.active {
+      max-height: 100dvh;
+      transition: $ease-in-out;
+    }
+
+    .topics-all__button {
+      margin: 10px;
+      display: flex;
+      justify-content: right;
+    }
+  }
+}
+
+.course-topics__table {
+  margin-top: 24px;
+  width: 100%;
+
+  td,
+  th {
+    padding: 10px;
+  }
+
+  tr {
+    border-bottom: 1px solid #aaa;
+  }
+
+  thead {
+    position: relative;
+
+    th {
+      color: $complementary;
+    }
+
+    &::before {
+      position: absolute;
+      content: "";
+      width: 100%;
+      height: 100%;
+      background-color: $primary-sub;
+      border-radius: 10px 10px 0 0;
+      z-index: -1;
+    }
+  }
+
+  tbody {
+    .course-topics__table-item {
+      cursor: pointer;
+
+      &:hover {
+        background-color: #ccc;
+      }
+    }
+  }
+}

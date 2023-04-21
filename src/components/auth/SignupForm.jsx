@@ -5,13 +5,15 @@ import ContactsIcon from "@mui/icons-material/Contacts";
 import ErrorIcon from "@mui/icons-material/Error";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { useRef, useState } from "react";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./authForm.scss";
 import { toast } from "react-toastify";
 import { REGEX } from "../../config/regex";
-import { OverlayTrigger, Popover } from "react-bootstrap";
-import { Password } from "@mui/icons-material";
+import { OverlayTrigger, Popover, Spinner } from "react-bootstrap";
+import useAxiosLazy from "../../hooks/useAxiosLazy";
+import apiEndpoints from "../../config/apiEndpoints";
 
 const {
   ACCENTED_LETTER_REGEX,
@@ -26,15 +28,28 @@ const SignupForm = () => {
   const usernameRef = useRef();
   const fullnameRef = useRef();
   const emailRef = useRef();
+  const avatarRef = useRef();
 
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const [fetch, { data, status, error: axiosError }] = useAxiosLazy({
+    url: apiEndpoints.user,
+    method: "post",
+    options: {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    },
+  });
+
   const fullnameFormat = (str) => {
     if (!str) return;
 
     const splitStr = str.split(" ");
+
+    if (splitStr.length === 1) return { lastname: splitStr[0] };
 
     const lastname = splitStr[splitStr.length - 1];
     splitStr.pop();
@@ -47,14 +62,19 @@ const SignupForm = () => {
   };
 
   const validate = () => {
-    console.log("run");
-
     const containsSpecialCharacter = CONTAIN_A_SPECIAL_CHARACTER.test(
       fullnameRef.current.value
     );
 
     if (containsSpecialCharacter) {
       setError("Fullname contains Special Characters");
+      return true;
+    }
+
+    const accentedCheck = ACCENTED_LETTER_REGEX.test(usernameRef.current.value);
+
+    if (!accentedCheck) {
+      setError("Username contains Accented Letter");
       return true;
     }
 
@@ -75,18 +95,32 @@ const SignupForm = () => {
     return false;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (validate()) return;
 
     const { firstname, lastname } = fullnameFormat(fullnameRef.current.value);
 
+    const form = new FormData();
+    form.append("first_name", firstname);
+    form.append("last_name", lastname);
+    form.append("username", usernameRef.current.value);
+    form.append("email", emailRef.current.value);
+    form.append("password", password);
+    form.append("avatar", avatarRef.current.files[0]);
+
+    fetch(form);
+
     setError("");
   };
 
   const handleKeyDown = (e) => {
     if (e.code === "Space") e.preventDefault();
+  };
+
+  const handleKeyDownSpecialCharacter = (e) => {
+    if (CONTAIN_A_SPECIAL_CHARACTER.test(e.key)) e.preventDefault();
   };
 
   const onChangedPassword = (e) => setPassword(e.target.value);
@@ -147,6 +181,7 @@ const SignupForm = () => {
           ref={fullnameRef}
           required
           placeholder="Fullname"
+          onKeyDown={handleKeyDownSpecialCharacter}
         />
       </div>
       <div className="input-container">
@@ -168,7 +203,13 @@ const SignupForm = () => {
           ref={usernameRef}
           required
           placeholder="Username"
-          onKeyDown={handleKeyDown}
+          onKeyDown={(e) => {
+            handleKeyDown(e);
+            handleKeyDownSpecialCharacter(e);
+          }}
+          onPaste={(e) => e.preventDefault()}
+          onCopy={(e) => e.preventDefault()}
+          onCut={(e) => e.preventDefault()}
         />
       </div>
       <OverlayTrigger trigger="focus" placement="top-start" overlay={popover}>
@@ -182,6 +223,9 @@ const SignupForm = () => {
             required
             placeholder="Password"
             onKeyDown={handleKeyDown}
+            onPaste={(e) => e.preventDefault()}
+            onCopy={(e) => e.preventDefault()}
+            onCut={(e) => e.preventDefault()}
           />
         </div>
       </OverlayTrigger>
@@ -195,7 +239,14 @@ const SignupForm = () => {
           required
           placeholder="Confirm password"
           onKeyDown={handleKeyDown}
+          onPaste={(e) => e.preventDefault()}
+          onCopy={(e) => e.preventDefault()}
+          onCut={(e) => e.preventDefault()}
         />
+      </div>
+      <div className="input-container">
+        <AccountCircleIcon />
+        <input type="file" name="avatar" ref={avatarRef} required />
       </div>
       {error && (
         <div className="error-message">
@@ -204,7 +255,13 @@ const SignupForm = () => {
           {error}
         </div>
       )}
-      <button className="primary-btn w-100">Sign In</button>
+      <button className="primary-btn w-100" disabled={status === "pending"}>
+        {status === "pending" ? (
+          <Spinner style={{ width: "20px", height: "20px" }} />
+        ) : (
+          "Sign up"
+        )}
+      </button>
     </form>
   );
 };

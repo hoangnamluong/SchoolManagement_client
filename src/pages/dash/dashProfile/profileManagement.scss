@@ -1,0 +1,52 @@
+@import "../../../assets/variables";
+
+.profile-management {
+  .profile-management__inner {
+    .profile-management__title {
+      h2 {
+        position: relative;
+
+        &::before {
+          position: absolute;
+          content: "";
+          width: 50px;
+          height: 3px;
+          background-color: $secondary;
+          bottom: -5px;
+          left: 0;
+        }
+      }
+    }
+
+    .profile-management__user {
+      position: relative;
+      text-align: center;
+
+      & > div {
+        margin: 14px auto;
+        width: 200px;
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 50%;
+        border: 2px solid #aaa;
+      }
+
+      h4 {
+        margin: 0;
+      }
+
+      &::before {
+        position: absolute;
+        content: "";
+        width: 70%;
+        height: 3px;
+        background-color: $secondary;
+        bottom: -24px;
+        left: 50%;
+        transform: translate(-50%, 0);
+      }
+    }
+  }
+}

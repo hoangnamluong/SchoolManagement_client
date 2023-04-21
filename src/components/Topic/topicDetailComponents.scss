@@ -1,0 +1,76 @@
+@import "../../assets/variables";
+
+.topic-detail__comment {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-top: 24px;
+  border-radius: 10px;
+
+  &:not(:first-child) {
+    width: 95%;
+    margin: 14px 0 0 auto;
+  }
+
+  .topic-detail-comment__title {
+    display: flex;
+    justify-content: space-between;
+
+    .title__inner {
+      display: flex;
+      gap: 20px;
+
+      .title__content {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        h5 {
+          margin: 0;
+        }
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .topic-detail-comment__content {
+    margin-top: 14px;
+  }
+}
+
+.topic-comment__form {
+  form {
+    .input-container {
+      margin-bottom: 0;
+
+      &::before {
+        border: none;
+      }
+
+      textarea {
+        width: 100%;
+        outline: none;
+        border: none;
+        font-family: $roboto;
+
+        &:focus {
+          outline: none;
+        }
+
+        &::-webkit-scrollbar {
+          width: 3px;
+        }
+      }
+
+      .send-icon {
+        cursor: pointer;
+        color: $primary;
+      }
+    }
+  }
+}

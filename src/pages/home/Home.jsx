@@ -108,7 +108,6 @@ const Home = () => {
   const intersectImg = useRef();
 
   const text = useGetJsonData("text");
-  const paragraph = useGetJsonData("paragraph");
 
   const elements = useInView(
     [heroRef, section2, intersectImg, section3, section4],

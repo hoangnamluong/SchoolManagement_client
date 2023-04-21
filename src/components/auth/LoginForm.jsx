@@ -18,6 +18,8 @@ import "./authForm.scss";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { REGEX } from "../../config/regex";
+import usePersist from "../../hooks/usePersist";
+import { Spinner } from "react-bootstrap";
 
 const LoginForm = () => {
   const { ACCENTED_LETTER_REGEX } = REGEX;
@@ -30,14 +32,14 @@ const LoginForm = () => {
 
   const { status } = useAuthSelector();
 
+  const [persist, setPersist] = usePersist();
+
   // const [login, { isLoading, isSuccess, isError }] = useLoginMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const accentedCheck =
-      ACCENTED_LETTER_REGEX.test(passwordRef.current.value) &&
-      ACCENTED_LETTER_REGEX.test(usernameRef.current.value);
+    const accentedCheck = ACCENTED_LETTER_REGEX.test(usernameRef.current.value);
 
     if (!accentedCheck) {
       setError("Username or Password contains Accented Letter");
@@ -59,17 +61,13 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (status === "fulfilled") {
-      toast.dismiss("loading");
       toast.success("Login Succeed");
 
       navigate("/user/home");
 
       usernameRef.current.value = "";
       passwordRef.current.value = "";
-    } else if (status === "pending") {
-      toast.loading("Loging In", { toastId: "loading" });
     } else if (status === "rejected") {
-      toast.dismiss("loading");
       setError("Username or Password is Incorrect");
 
       passwordRef.current.value = "";
@@ -107,9 +105,12 @@ const LoginForm = () => {
           required
           placeholder="Username"
           onKeyDown={handleKeyDown}
+          onPaste={(e) => e.preventDefault()}
+          onCopy={(e) => e.preventDefault()}
+          onCut={(e) => e.preventDefault()}
         />
       </div>
-      <div className="input-container">
+      <div className="input-container mb-1">
         <LockIcon />
         <input
           type="password"
@@ -118,7 +119,22 @@ const LoginForm = () => {
           required
           placeholder="Password"
           onKeyDown={handleKeyDown}
+          onPaste={(e) => e.preventDefault()}
+          onCopy={(e) => e.preventDefault()}
+          onCut={(e) => e.preventDefault()}
         />
+      </div>
+      <div className="login-extra-actions disable-select">
+        <div className="remember-me-button">
+          <input
+            type="checkbox"
+            id="remember-me"
+            checked={persist}
+            onChange={() => setPersist((curr) => !curr)}
+          />
+          <label htmlFor="remember-me">Remember me</label>
+        </div>
+        <p className="fw-400">Forgot Password?</p>
       </div>
       {error && (
         <div className="error-message">
@@ -127,9 +143,12 @@ const LoginForm = () => {
           {error}
         </div>
       )}
-      <p>Forgot Password?</p>
       <button className="primary-btn w-100" disabled={status === "pending"}>
-        Sign In
+        {status === "pending" ? (
+          <Spinner style={{ width: "20px", height: "20px" }} />
+        ) : (
+          "Sign In"
+        )}
       </button>
     </form>
   );

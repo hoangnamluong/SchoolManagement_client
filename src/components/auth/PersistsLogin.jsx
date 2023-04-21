@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { refresh } from "../../features/auth/authSlice";
 import useAuthSelector from "../../hooks/Selectors/useAuthSelector";
+import usePersist from "../../hooks/usePersist";
 
 //components
 import SpinnerComponent from "../misc/SpinnerComponent";
@@ -14,6 +15,8 @@ import SpinnerComponent from "../misc/SpinnerComponent";
 const PersistsLogin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [persist] = usePersist();
 
   const { accessToken, refreshStatus } = useAuthSelector();
 
@@ -49,7 +52,7 @@ const PersistsLogin = () => {
       }
     };
 
-    if (!accessToken && refreshStatus === "idle") refreshToken();
+    if (!accessToken && refreshStatus === "idle" && persist) refreshToken();
 
     return () => {
       runOnce.current = true;

@@ -4,18 +4,18 @@ import apiEndpoints from "../../config/apiEndpoints";
 import RESPONSE_STATUS from "../../config/RESPONSE_STATUS";
 
 const initialState = {
-  courses: [],
+  topics: [],
   status: "idle",
   error: "",
 };
 
-export const getAllCourse = createAsyncThunk(
-  "/course",
+export const getAllTopic = createAsyncThunk(
+  "/topic",
   async (arg, { getState, rejectWithValue }) => {
     try {
       const accessToken = getState().auth.access_token;
 
-      const { data, status } = await axiosClient.get(apiEndpoints.course, {
+      const { data, status } = await axiosClient.get(apiEndpoints.topic, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -35,31 +35,31 @@ export const getAllCourse = createAsyncThunk(
   }
 );
 
-const courseSlice = createSlice({
-  name: "course",
+const topicSlice = createSlice({
+  name: "topic",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllCourse.pending, (state, action) => {
+      .addCase(getAllTopic.pending, (state, action) => {
         state.status = "pending";
       })
-      .addCase(getAllCourse.fulfilled, (state, action) => {
+      .addCase(getAllTopic.fulfilled, (state, action) => {
         state.status = "fulfilled";
-        state.courses = [...action.payload];
+        state.topics = [...action.payload];
       })
-      .addCase(getAllCourse.rejected, (state, action) => {
+      .addCase(getAllTopic.rejected, (state, action) => {
         state.status = "error";
         state.error = action.payload;
       });
   },
 });
 
-export const selectCourses = (state) => state.course.courses;
-export const selectStatus = (state) => state.course.status;
-export const selectError = (state) => state.course.error;
+export const selectTopics = (state) => state.topic.topics;
+export const selectStatus = (state) => state.topic.status;
+export const selectError = (state) => state.topic.error;
 
-export const selectCourseById = (state, courseId) =>
-  state.course.courses.find((course) => course.id === +courseId);
+export const selectTopicById = (state, topicId) =>
+  state.topic.topics.find((topic) => topic.id === +topicId);
 
-export default courseSlice.reducer;
+export default topicSlice.reducer;

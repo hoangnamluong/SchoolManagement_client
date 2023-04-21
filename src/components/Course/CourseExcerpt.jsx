@@ -5,14 +5,21 @@ import ITPic from "../../assets/img/luca-bravo-XJXWbfSo2f0-unsplash.png";
 
 import Wave from "../../assets/svg/wave.svg";
 import shortenName from "../../utils/shortenName";
+import { useNavigate } from "react-router-dom";
 
 const CourseExcerpt = ({ course }) => {
+  const navigate = useNavigate();
+
   const { course_class, subject, teacher } = course;
 
   const fullname = shortenName(teacher.user.first_name, teacher.user.last_name);
 
+  const handleCourseClick = (e) => {
+    navigate(`/user/courses/${course.id}`);
+  };
+
   return (
-    <div className="course">
+    <div className="course" onClick={handleCourseClick}>
       <div className="course__img" style={{ backgroundImage: `url(${ITPic})` }}>
         <span style={{ backgroundImage: `url(${Wave})` }}></span>
       </div>

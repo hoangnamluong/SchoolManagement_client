@@ -1,0 +1,77 @@
+@import "../../assets/variables";
+
+.profile-management__form {
+  margin-top: 32px;
+
+  form {
+    .profile-management__input-container {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 12px 0;
+      margin: 24px 0;
+      border: 1px solid #bbb;
+      border-radius: 10px;
+
+      &:has(input:focus, select:focus) {
+        border: 1px solid $primary;
+      }
+
+      select {
+        width: 99%;
+        height: 100%;
+        padding: 6px 12px;
+        border: none;
+        outline: none;
+
+        &:focus {
+          border: none;
+          outline: none;
+        }
+      }
+
+      label {
+        position: absolute;
+        top: -15px;
+        left: 5px;
+        font-size: 1.1em;
+        font-weight: 300;
+        background-color: #fff;
+        padding: 0 10px;
+      }
+
+      input {
+        width: 100%;
+        padding: 6px 12px;
+        border: none;
+        outline: none;
+
+        &:focus {
+          border: none;
+          outline: none;
+        }
+
+        &[type="file"] {
+          cursor: pointer;
+
+          &::-webkit-file-upload-button {
+            cursor: pointer;
+            border: 1px solid $primary;
+            border-radius: 12px;
+            padding: 0 12px;
+            color: $primary;
+            font-weight: 500;
+          }
+        }
+      }
+
+      input:focus + label {
+        font-weight: 400;
+      }
+    }
+
+    button {
+      margin-top: 24px;
+    }
+  }
+}

@@ -1,0 +1,58 @@
+@import "../../../assets/variables";
+
+.topic-detail {
+  position: relative;
+  padding-bottom: 50px;
+
+  .topic-detail__inner {
+    position: relative;
+
+    .topic-detail__title {
+      h2 {
+        position: relative;
+
+        &::before {
+          position: absolute;
+          content: "";
+          width: 50px;
+          height: 3px;
+          background-color: $primary;
+          bottom: -5px;
+          left: 0;
+        }
+      }
+    }
+
+    .topic-comment__form {
+      position: sticky;
+      width: 95%;
+      display: block;
+      margin: 0 0 0 auto;
+      bottom: 30px;
+      padding: 30px 30px 0 30px;
+      margin-top: 14px;
+      border: 1px solid $primary-sub;
+      background-color: #fff;
+      border-radius: 10px;
+
+      .form__title {
+        display: flex;
+        gap: 20px;
+
+        .title__content {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+
+          h5 {
+            margin: 0;
+          }
+
+          p {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+}

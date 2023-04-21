@@ -1,14 +1,12 @@
 import React from "react";
 
-let Avatar = ({ img }) => {
+let Avatar = ({ img, username }) => {
   return (
-    <img
-      src={img}
-      width={50}
-      height={50}
-      style={{ borderRadius: `50%` }}
-      alt="User Avatar"
-    />
+    <div
+      className="avatar"
+      style={{ backgroundImage: `url(${img})` }}
+      alt={username}
+    ></div>
   );
 };
 
