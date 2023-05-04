@@ -22,7 +22,9 @@ const GradingAction = () => {
   };
 
   const handleLockGrade = (e) => {
-    dispatch(lockGrade({ courseId }));
+    if (confirm("Are you sure you want to lock grade?")) {
+      dispatch(lockGrade({ courseId }));
+    }
   };
 
   return (
