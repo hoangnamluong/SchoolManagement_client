@@ -5,17 +5,20 @@ import CoursesList from "../../../components/Course/CoursesList";
 //scss
 import "./dashHome.scss";
 
-//hooks
-import { useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import useUserSelector from "../../../hooks/Selectors/useUserSelector";
 
 const DashHome = () => {
+  const { currentUser } = useUserSelector();
+
   return (
     <div className="dash-home">
       <div className="dash-home__inner">
         <div className="dash-home__title">
           <img src={HiSvg} alt="Welcome" />
-          <h1>Welcome Back, Líu Líu rẻ gách</h1>
+          <h1>
+            Welcome Back, {currentUser?.first_name || ""}{" "}
+            {currentUser?.last_name || ""}
+          </h1>
         </div>
         <div className="dash-home__courses">
           <h2>Courses</h2>
