@@ -18,11 +18,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-export const emailLinkActionCodeSettings = {
-  url: import.meta.VITE_LOGIN_URL,
-  handleCodeInApp: true,
-};
-
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 export const db = getFirestore(app);
