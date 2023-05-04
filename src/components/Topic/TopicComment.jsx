@@ -1,13 +1,25 @@
-import Avatar from "../User/Avatar";
-import EditIcon from "../../assets/svg/edit.svg";
 import { useState } from "react";
+
+import EditIcon from "../../assets/svg/edit.svg";
+
+import Avatar from "../User/Avatar";
 import TopicCommentEditForm from "./TopicCommentEditForm";
-import Moment from "react-moment";
+
+import moment from "moment";
 
 const TopicComment = ({ comment, userId, topicTitle }) => {
   const [edit, setEdit] = useState(false);
 
   const loggedUser = userId === comment.user.id;
+
+  const dateInit = moment(comment.created_date).format(
+    "dddd, DD MMMM yyyy, HH:mm:ss"
+  );
+
+  const createdDate = dateInit
+    .charAt(0)
+    .toUpperCase()
+    .concat(dateInit.slice(1));
 
   const onEditClicked = () => {
     setEdit((curr) => !curr);
@@ -26,9 +38,7 @@ const TopicComment = ({ comment, userId, topicTitle }) => {
               </p>
             </div>
           </div>
-          <Moment format="dddd DD-MMMM-yyyy HH:mm:ss">
-            {comment.created_date}
-          </Moment>
+          <p className="fw-400">{createdDate}</p>
         </div>
         {!edit ? (
           <div className="topic-detail-comment__content">

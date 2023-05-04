@@ -1,8 +1,19 @@
-import Moment from "react-moment";
-import Avatar from "../User/Avatar";
 import "./topicScss/topicDetailComponents.scss";
 
+import Avatar from "../User/Avatar";
+
+import moment from "moment";
+
 const TopicDetailExcerpt = ({ topic }) => {
+  const dateInit = moment(topic.created_date).format(
+    "dddd, DD MMMM yyyy, HH:mm:ss"
+  );
+
+  const createdDate = dateInit
+    .charAt(0)
+    .toUpperCase()
+    .concat(dateInit.slice(1));
+
   return (
     topic && (
       <div className="topic-detail__comment">
@@ -16,9 +27,7 @@ const TopicDetailExcerpt = ({ topic }) => {
               </p>
             </div>
           </div>
-          <Moment format="dddd DD-MMMM-yyyy HH:mm:ss">
-            {topic.created_date}
-          </Moment>
+          <p className="fw-400">{createdDate}</p>
         </div>
         <div className="topic-detail-comment__content">
           <p className="fw-400">{topic.content}</p>

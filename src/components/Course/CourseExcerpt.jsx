@@ -33,7 +33,7 @@ const CourseExcerpt = ({ course }) => {
         <p className="d-flex course-content__info">
           <span>
             <img src={ClockIcon} width={20} height={20} />
-            <Moment locale="vi" format="DD MMM yyyy">
+            <Moment locale="vi" format="DD MMMM yyyy">
               {start_date}
             </Moment>
           </span>
