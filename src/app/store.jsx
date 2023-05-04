@@ -54,5 +54,5 @@ export default configureStore({
       },
     }),
 
-  devTools: true,
+  devTools: false,
 });
