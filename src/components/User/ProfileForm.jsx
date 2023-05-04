@@ -31,12 +31,15 @@ const ProfileForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      avatarRef.current.files[0].type !== "image/png" &&
-      avatarRef.current.files[0].type !== "image/jpg" &&
-      avatarRef.current.files[0].type !== "image/jpeg"
-    )
-      return toast.warning("Incorrect Avatar type");
+    if (avatarRef.current.files.length > 0) {
+      if (
+        avatarRef.current.files[0].type !== "image/png" &&
+        avatarRef.current.files[0].type !== "image/jpg" &&
+        avatarRef.current.files[0].type !== "image/jpeg"
+      ) {
+        return toast.warning("Incorrect Avatar type");
+      }
+    }
 
     const form = convertObjectToFormData({
       first_name: firstNameRef.current.value,
