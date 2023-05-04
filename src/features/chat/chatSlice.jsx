@@ -108,6 +108,7 @@ const chatSlice = createSlice({
       .addCase(getExistsChat.fulfilled, (state, action) => {
         state.chats = [...action.payload];
         state.status = "fulfilled";
+        state.error = "";
       })
       .addCase(getExistsChat.rejected, (state, action) => {
         state.error = action.payload;

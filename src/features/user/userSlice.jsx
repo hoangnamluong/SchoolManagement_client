@@ -76,6 +76,7 @@ const userSlice = createSlice({
       .addCase(getCurrentUser.fulfilled, (state, action) => {
         state.status = "fulfilled";
         state.current_user = action.payload;
+        state.error = "";
       })
       .addCase(getCurrentUser.rejected, (state, action) => {
         state.status = "rejected";
@@ -87,6 +88,7 @@ const userSlice = createSlice({
       .addCase(updateCurrentUser.fulfilled, (state, action) => {
         state.update_status = "fulfilled";
         state.current_user = action.payload;
+        state.error = "";
       })
       .addCase(updateCurrentUser.rejected, (state, action) => {
         state.update_status = "rejected";

@@ -45,7 +45,6 @@ const ProfileForm = () => {
       first_name: firstNameRef.current.value,
       last_name: lastNameRef.current.value,
       username: usernameRef.current.value,
-      email: emailRef.current.value,
       avatar: avatarRef.current.files[0],
       gender: gender,
     });

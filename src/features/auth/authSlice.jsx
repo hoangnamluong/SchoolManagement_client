@@ -136,6 +136,7 @@ const authSlice = createSlice({
           expires: ONE_HOUR,
           secure: true,
         });
+        state.error = "";
       })
       .addCase(login.pending, (state, action) => {
         state.status = "pending";
@@ -154,6 +155,7 @@ const authSlice = createSlice({
           expires: ONE_HOUR,
           secure: true,
         });
+        state.error = "";
       })
       .addCase(refresh.pending, (state, action) => {
         state.refresh_status = "pending";
