@@ -30,7 +30,7 @@ const LoginForm = () => {
   const passwordRef = useRef();
   const [error, setError] = useState("");
 
-  const { status } = useAuthSelector();
+  const { userInfo, status } = useAuthSelector();
 
   const [persist, setPersist] = usePersist();
 
@@ -60,10 +60,9 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
-    if (status === "fulfilled") {
-      toast.success("Login Succeed");
-
+    if (status === "fulfilled" && userInfo) {
       navigate("/user/home");
+      toast.success("Login Succeed");
 
       usernameRef.current.value = "";
       passwordRef.current.value = "";
@@ -72,7 +71,7 @@ const LoginForm = () => {
 
       passwordRef.current.value = "";
     }
-  }, [status]);
+  }, [status, userInfo]);
 
   const handleKeyDown = (e) => {
     if (e.code === "Space") e.preventDefault();

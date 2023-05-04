@@ -8,11 +8,13 @@ import SpinnerComponent from "../misc/SpinnerComponent";
 
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { memo, useEffect, useRef } from "react";
+import { memo, useEffect, useMemo, useRef } from "react";
 import useCourseSelector from "../../hooks/Selectors/useCourseSelector";
 import { getAllCourse } from "../../features/course/courseSlice";
 
-const CoursesList = () => {
+import removeAccentedLetter from "../../utils/removeAccentedLetter";
+
+const CoursesList = ({ query = "" }) => {
   const dispatch = useDispatch();
 
   const { courses, error, status } = useCourseSelector();
@@ -29,7 +31,18 @@ const CoursesList = () => {
     };
   }, []);
 
-  const coursesList = courses.map((course) => (
+  const filteredCourses =
+    useMemo(() => {
+      if (courses.length > 0) {
+        return courses.filter((course) => {
+          return removeAccentedLetter(course.subject.name)
+            .replace(/\s+/g, "")
+            .includes(removeAccentedLetter(query).replace(/\s+/g), "");
+        });
+      }
+    }, [courses, query]) ?? [];
+
+  const coursesList = filteredCourses.map((course) => (
     <div key={course.id}>
       <CourseExcerpt course={course} />
     </div>
@@ -38,7 +51,9 @@ const CoursesList = () => {
   return (
     <div className="courses-list">
       {status === "pending" && <SpinnerComponent />}
-      {courses.length > 0 ? coursesList : <h3>So Empty</h3>}
+      {status === "fulfilled" &&
+        (filteredCourses.length > 0 ? coursesList : <h3>Courses not found</h3>)}
+      {status === "rejected" && <h3>Could not get Courses</h3>}
     </div>
   );
 };

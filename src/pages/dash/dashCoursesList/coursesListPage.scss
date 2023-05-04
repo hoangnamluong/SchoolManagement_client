@@ -1,0 +1,29 @@
+@import "../../../assets/variables";
+
+.courses-list-page {
+  .courses-list-page__inner {
+    .courses-list-page__title {
+      h1 {
+        position: relative;
+
+        &::before {
+          position: absolute;
+          content: "";
+          width: 50px;
+          height: 3px;
+          background-color: $primary;
+          bottom: -5px;
+          left: 0;
+        }
+      }
+    }
+
+    .courses-list-page__courses {
+      margin-top: 24px;
+    }
+
+    .courses-list-page__search {
+      margin-top: 24px;
+    }
+  }
+}

@@ -25,6 +25,8 @@ const {
 } = REGEX;
 
 const SignupForm = () => {
+  const navigate = useNavigate();
+
   const usernameRef = useRef();
   const fullnameRef = useRef();
   const emailRef = useRef();
@@ -92,10 +94,39 @@ const SignupForm = () => {
       return true;
     }
 
+    if (
+      avatarRef.current.files[0].type !== "image/png" &&
+      avatarRef.current.files[0].type !== "image/jpg" &&
+      avatarRef.current.files[0].type !== "image/jpeg"
+    )
+      return toast.warning("Incorrect Avatar type");
+
     return false;
   };
 
-  const handleSubmit = (e) => {
+  const reset = (arg) => {
+    if (arg.includes("avatar")) {
+      avatarRef.current.value = "";
+    }
+
+    if (arg.includes("username")) {
+      usernameRef.current.value = "";
+    }
+
+    if (arg.includes("fullname")) {
+      fullnameRef.current.value = "";
+    }
+
+    if (arg.includes("email")) {
+      emailRef.current.value = "";
+    }
+
+    setPassword("");
+    setConfirmPassword("");
+    setError("");
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validate()) return;
@@ -114,6 +145,20 @@ const SignupForm = () => {
 
     setError("");
   };
+
+  useEffect(() => {
+    if (status === "fulfilled") {
+      toast.success("Signup Succeed");
+
+      navigate("/login");
+
+      reset(["username", "fullname", "email", "avatar"]);
+    } else if (status === "rejected") {
+      reset([]);
+
+      toast.error("Signup Failed");
+    }
+  }, [status]);
 
   const handleKeyDown = (e) => {
     if (e.code === "Space") e.preventDefault();
@@ -246,7 +291,14 @@ const SignupForm = () => {
       </div>
       <div className="input-container">
         <AccountCircleIcon />
-        <input type="file" name="avatar" ref={avatarRef} required />
+        <input
+          type="file"
+          name="avatar"
+          ref={avatarRef}
+          required
+          accept="image/png, image/jpg, image/jpeg
+        "
+        />
       </div>
       {error && (
         <div className="error-message">

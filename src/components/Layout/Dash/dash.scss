@@ -23,18 +23,196 @@
   .dash__sidebar {
     position: fixed;
     height: 100dvh;
-    width: 280px;
+    z-index: 999;
+
+    .burger {
+      position: absolute;
+      content: "";
+      width: 40px;
+      height: 40px;
+      top: 10px;
+      left: 30px;
+      border-radius: 12px;
+      background-color: $secondary;
+
+      &.close {
+        left: 220px;
+
+        .first {
+          transform: translate(-50%, 6px) rotate(45deg);
+          transition: $ease-in-out;
+        }
+
+        .second {
+          left: -20px;
+          opacity: 0;
+          transition: $ease-in-out;
+        }
+
+        .third {
+          transform: translate(-50%, -10px) rotate(-45deg);
+          transition: $ease-in-out;
+        }
+      }
+
+      .first {
+        position: absolute;
+        content: "";
+        width: 60%;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 3px;
+        border-radius: 24px;
+        background-color: $complementary;
+        transition: $ease-in-out;
+      }
+
+      .second {
+        opacity: 1;
+        position: absolute;
+        content: "";
+        width: 60%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 3px;
+        border-radius: 24px;
+        background-color: $complementary;
+        transition: $ease-in-out;
+      }
+
+      .third {
+        position: absolute;
+        content: "";
+        width: 60%;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 3px;
+        border-radius: 24px;
+        background-color: $complementary;
+        transition: $ease-in-out;
+      }
+    }
 
     .sidebar__inner {
+      overflow: hidden;
       height: inherit;
-      width: inherit;
-      padding: 20px;
+      width: 100px;
+      padding: 0;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
 
+      &.active {
+        width: 280px;
+
+        .sidebar__items {
+          h1 {
+            visibility: visible;
+          }
+
+          ul {
+            li {
+              width: 100%;
+              height: 60px;
+              margin: 20px 0;
+              background-color: $secondary;
+              color: $complementary;
+              border-radius: 10px;
+
+              &.active {
+                span {
+                  background-color: $secondary;
+
+                  svg {
+                    z-index: 1;
+                  }
+
+                  &::after {
+                    position: absolute;
+                    background-color: $complementary;
+                    width: 70%;
+                    height: 70%;
+                    content: "";
+                    border-radius: 15px;
+                  }
+                }
+              }
+
+              a {
+                display: grid;
+                grid-template-columns: 1fr 3fr;
+                gap: 8px;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+
+                &:hover {
+                  svg {
+                    animation: shake 0.2s forwards;
+                  }
+                }
+
+                span {
+                  position: relative;
+                  background-color: $complementary;
+                  color: $secondary;
+                  border-radius: 10px 0 0 10px;
+                  height: 100%;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                }
+
+                p {
+                  display: block;
+                }
+              }
+            }
+          }
+        }
+
+        .sidebar__user-info {
+          padding: 20px;
+
+          a {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 8px;
+            background-color: $secondary;
+            color: $complementary;
+            padding: 10px;
+            flex-wrap: nowrap;
+            align-items: center;
+            overflow-x: hidden;
+            border-radius: 16px;
+
+            .avatar {
+              aspect-ratio: 1;
+            }
+
+            &:hover {
+              .avatar {
+                animation: shake 0.2s forwards;
+              }
+            }
+
+            p {
+              display: block;
+              margin: 0;
+              font-size: 1em;
+            }
+          }
+        }
+      }
+
       .sidebar__items {
+        padding: 20px;
+
         h1 {
+          visibility: hidden;
           color: $complementary;
           border-bottom: 1px solid $complementary;
           font-size: 30px;
@@ -73,10 +251,7 @@
             }
 
             a {
-              display: grid;
-              grid-template-columns: 1fr 3fr;
-              gap: 20px;
-              align-items: center;
+              display: block;
               width: 100%;
               height: 100%;
 
@@ -90,11 +265,15 @@
                 position: relative;
                 background-color: $complementary;
                 color: $secondary;
-                border-radius: 10px 0 0 10px;
+                border-radius: 10px;
                 height: 100%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+              }
+
+              p {
+                display: none;
               }
             }
           }
@@ -102,37 +281,41 @@
       }
 
       .sidebar__user-info {
+        padding: 20px;
+
         a {
-          display: flex;
-          gap: 20px;
+          display: block;
           background-color: $secondary;
-          color: $complementary;
-          padding: 10px;
-          flex-wrap: nowrap;
-          align-items: center;
-          overflow-x: hidden;
-          border-radius: 10px;
+          border-radius: 16px;
+          padding: 10px 0;
+
+          .avatar {
+            margin: auto;
+            aspect-ratio: 1;
+          }
 
           &:hover {
-            img {
+            .avatar {
               animation: shake 0.2s forwards;
             }
           }
 
           p {
+            display: none;
             margin: 0;
             font-size: 1em;
           }
         }
       }
-      button {
-        display: block;
-        margin: 10px 0 0 auto;
-      }
     }
   }
 
   .dash__inner {
-    padding: 50px 50px 0 350px;
+    &.collapsed {
+      padding: 50px 50px 0 140px;
+    }
+    &.expanded {
+      padding: 50px 50px 0 320px;
+    }
   }
 }

@@ -2,31 +2,54 @@ import "./profileForm.scss";
 
 import ErrorIcon from "@mui/icons-material/Error";
 
+import { toast } from "react-toastify";
+import { Spinner } from "react-bootstrap";
+
 import { useEffect, useRef, useState } from "react";
-import useAxios from "../../hooks/useAxios";
-import apiEndpoints from "../../config/apiEndpoints";
+
+import { useDispatch } from "react-redux";
+import useUserSelector from "../../hooks/Selectors/useUserSelector";
+import { updateCurrentUser } from "../../features/user/userSlice";
+
+import convertObjectToFormData from "../../utils/convertObjectToFormData";
+
+import { REGEX } from "../../config/regex";
 
 const ProfileForm = () => {
+  const dispatch = useDispatch();
+
+  const { currentUser, updateStatus, status, error } = useUserSelector();
+
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const emailRef = useRef();
   const usernameRef = useRef();
-  const genderRef = useRef();
   const avatarRef = useRef();
 
-  const [error, setError] = useState("");
-
-  const {
-    data,
-    status,
-    error: axiosError,
-  } = useAxios({
-    url: apiEndpoints.user.concat("current-user/"),
-    method: "get",
-  });
+  const [gender, setGender] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (
+      avatarRef.current.files[0].type !== "image/png" &&
+      avatarRef.current.files[0].type !== "image/jpg" &&
+      avatarRef.current.files[0].type !== "image/jpeg"
+    )
+      return toast.warning("Incorrect Avatar type");
+
+    const form = convertObjectToFormData({
+      first_name: firstNameRef.current.value,
+      last_name: lastNameRef.current.value,
+      username: usernameRef.current.value,
+      email: emailRef.current.value,
+      avatar: avatarRef.current.files[0],
+      gender: gender,
+    });
+
+    if (!form) return;
+
+    dispatch(updateCurrentUser(form));
   };
 
   const handleKeyDown = (e) => {
@@ -34,20 +57,24 @@ const ProfileForm = () => {
   };
 
   const handleKeyDownSpecialCharacter = (e) => {
-    if (CONTAIN_A_SPECIAL_CHARACTER.test(e.key)) e.preventDefault();
+    if (REGEX.CONTAIN_A_SPECIAL_CHARACTER.test(e.key)) e.preventDefault();
+  };
+
+  const onGenderChanged = (e) => {
+    setGender(e.target.value);
   };
 
   useEffect(() => {
-    if (data) {
-      const { first_name, last_name, username, email, gender } = data;
-
-      firstNameRef.current.value = data.first_name;
-      lastNameRef.current.value = data.last_name;
-      usernameRef.current.value = data.username;
-      emailRef.current.value = data.email;
-      genderRef.current = data.gender;
+    if (status === "fulfilled") {
+      if (currentUser) {
+        usernameRef.current.value = currentUser.username;
+        firstNameRef.current.value = currentUser.first_name;
+        lastNameRef.current.value = currentUser.last_name;
+        emailRef.current.value = currentUser.email;
+        setGender(currentUser.gender);
+      }
     }
-  }, [data]);
+  }, [status]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -55,22 +82,15 @@ const ProfileForm = () => {
         <div className="profile-management__input-container m-0">
           <input
             id="firstName"
-            type="firstName"
+            type="text"
             name="firstName"
             ref={firstNameRef}
-            onKeyDown={handleKeyDown}
           />
-          <label htmlFor="email">First Name</label>
+          <label htmlFor="firstName">First Name</label>
         </div>
         <div className="profile-management__input-container m-0">
-          <input
-            id="lastName"
-            type="lastName"
-            name="lastName"
-            ref={lastNameRef}
-            onKeyDown={handleKeyDown}
-          />
-          <label htmlFor="email">Last Name</label>
+          <input id="lastName" type="text" name="lastName" ref={lastNameRef} />
+          <label htmlFor="lastName">Last Name</label>
         </div>
       </div>
       <div className="profile-management__input-container">
@@ -96,18 +116,25 @@ const ProfileForm = () => {
           name="email"
           ref={emailRef}
           onKeyDown={handleKeyDown}
+          disabled
         />
         <label htmlFor="email">Email</label>
       </div>
       <div className="profile-management__input-container">
-        <select id="gender" ref={genderRef}>
+        <select id="gender" value={gender} onChange={onGenderChanged}>
           <option value={false}>Female</option>
           <option value={true}>Male</option>
         </select>
         <label htmlFor="gender">Gender</label>
       </div>
       <div className="profile-management__input-container">
-        <input id="avatar" type="file" name="avatar" ref={avatarRef} />
+        <input
+          id="avatar"
+          type="file"
+          name="avatar"
+          ref={avatarRef}
+          accept="image/png, image/jpg, image/jpeg"
+        />
         <label>Avatar</label>
       </div>
       {error && (
@@ -117,7 +144,16 @@ const ProfileForm = () => {
           {error}
         </div>
       )}
-      <button className="primary-btn w-100">Save Changes</button>
+      <button
+        className="primary-btn w-100"
+        disabled={updateStatus === "pending"}
+      >
+        {updateStatus === "pending" ? (
+          <Spinner style={{ width: "20px", height: "20px" }} />
+        ) : (
+          "Save Changes"
+        )}
+      </button>
     </form>
   );
 };

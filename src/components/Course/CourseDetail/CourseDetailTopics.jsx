@@ -1,23 +1,28 @@
 import { useEffect, useRef, useState } from "react";
 import CourseTopicExcerpt from "./CourseTopicExcerpt";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getAllTopic } from "../../../features/topic/topicSlice";
+import { getAllTopic, setCourseId } from "../../../features/topic/topicSlice";
 import useTopicSelector from "../../../hooks/Selectors/useTopicSelector";
 
-const CourseDetailTopics = ({ courseId }) => {
+const CourseDetailTopics = () => {
+  const { courseId } = useParams();
+
   const dispatch = useDispatch();
+
+  const runOnce = useRef(false);
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const { topics, status, error } = useTopicSelector();
-
-  const runOnce = useRef(false);
+  const { courseId: prevCourseId, topics, status, error } = useTopicSelector();
 
   useEffect(() => {
     if (runOnce.current) return;
 
-    if (status === "idle") dispatch(getAllTopic());
+    if (prevCourseId !== courseId) {
+      dispatch(setCourseId({ courseId }));
+      dispatch(getAllTopic({ courseId }));
+    }
 
     return () => {
       runOnce.current = true;
@@ -32,11 +37,10 @@ const CourseDetailTopics = ({ courseId }) => {
             <th>Title</th>
             <th>Author</th>
             <th>Created At</th>
-            <th>Comments</th>
           </tr>
         </thead>
         <tbody>
-          {topics.map((topic) => (
+          {topics.slice(0, 5).map((topic) => (
             <CourseTopicExcerpt topic={topic} key={topic.id} />
           ))}
         </tbody>
@@ -56,7 +60,7 @@ const CourseDetailTopics = ({ courseId }) => {
       </div>
       <div className={`topics__list ${isOpen ? "active" : ""}`}>
         {topicsTable}
-        <Link className="topics-all__button">
+        <Link className="topics-all__button" to={"topic"}>
           <button className="secondary-outlined-btn">View All</button>
         </Link>
       </div>

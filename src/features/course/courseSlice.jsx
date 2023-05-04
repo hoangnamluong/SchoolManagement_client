@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axiosClient from "../../app/api/axiosClient";
+import { axiosPrivate } from "../../app/api/axiosClient";
 import apiEndpoints from "../../config/apiEndpoints";
 import RESPONSE_STATUS from "../../config/RESPONSE_STATUS";
 
@@ -13,19 +13,12 @@ export const getAllCourse = createAsyncThunk(
   "/course",
   async (arg, { getState, rejectWithValue }) => {
     try {
-      const accessToken = getState().auth.access_token;
-
-      const { data, status } = await axiosClient.get(apiEndpoints.course, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const { data, status } = await axiosPrivate.get(apiEndpoints.course);
 
       if (RESPONSE_STATUS.some((i) => i === status)) {
         return data;
       }
     } catch (err) {
-      console.log(err);
       if (err.response && err.response.data.error_description) {
         return rejectWithValue(err.response.data.error_description);
       } else {

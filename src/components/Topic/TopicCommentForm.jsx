@@ -1,19 +1,49 @@
-import SendIcon from "@mui/icons-material/Send";
+import SendIcon from "../../assets/svg/send.svg";
 import InfoIcon from "@mui/icons-material/InfoRounded";
 
-import { useRef, useState } from "react";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import useAxiosLazy from "../../hooks/useAxiosLazy";
 
-const TopicCommentForm = () => {
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import apiEndpoints from "../../config/apiEndpoints";
+
+import { pushComment } from "../../context/action/CommentAction";
+import useCommentContext from "../../hooks/Context/useCommentContext";
+import { toast } from "react-toastify";
+
+const TopicCommentForm = ({ topic }) => {
   const [comment, setComment] = useState("");
+
+  const { dispatch } = useCommentContext();
+
+  const [fetch, { data, status, error }] = useAxiosLazy({
+    url: apiEndpoints.topic.concat(`${topic.id}/comment/`),
+    method: "post",
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!comment) return;
 
-    console.log(comment);
+    const comm = comment.trim().replace(/\s+/g, " ");
+
+    const form = new FormData();
+    form.append("content", comm);
+
+    fetch(form);
   };
+
+  useEffect(() => {
+    if (status === "fulfilled") {
+      dispatch(pushComment(data));
+      setComment("");
+    }
+    if (status === "rejected") {
+      toast.error("Could not add Your Comment");
+      setComment("");
+    }
+  }, [status]);
 
   const handleCommentChanged = (e) => {
     setComment(e.target.value);
@@ -43,7 +73,7 @@ const TopicCommentForm = () => {
   );
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="input-container">
         <textarea
           name="comment"
@@ -62,7 +92,7 @@ const TopicCommentForm = () => {
           trigger={["hover", "focus"]}
         >
           <span className="send-icon" onClick={handleSubmit}>
-            <SendIcon />
+            <img src={SendIcon} height={30} width={30} />
           </span>
         </OverlayTrigger>
       </div>

@@ -1,0 +1,21 @@
+@import "../../../assets/variables";
+
+.topics {
+  .topics__inner {
+    .topics__title {
+      h1 {
+        position: relative;
+
+        &::before {
+          position: absolute;
+          content: "";
+          width: 50px;
+          height: 3px;
+          background-color: $primary;
+          bottom: -5px;
+          left: 0;
+        }
+      }
+    }
+  }
+}

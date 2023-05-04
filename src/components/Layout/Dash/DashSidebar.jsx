@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import SchoolIcon from "@mui/icons-material/School";
 import PersonIcon from "@mui/icons-material/Person";
+import ViewListIcon from "@mui/icons-material/ViewList";
 
 //components
 import Avatar from "../../User/Avatar";
@@ -12,21 +13,40 @@ import Avatar from "../../User/Avatar";
 import Logout from "../../misc/Logout";
 
 //hooks
+import useUserSelector from "../../../hooks/Selectors/useUserSelector";
 import useAuthSelector from "../../../hooks/Selectors/useAuthSelector";
+
+import { toggleSidebar } from "../../../context/action/SidebarAction";
+
+import ROLE from "../../../data/ROLE";
 
 const COURSE_REGEX = /user\/courses/;
 const HOME_REGEX = /user\/home/;
 const PROFILE_REGEX = /user\/profile/;
+const GRADES_REGEX = /user\/grades/;
 
-const DashSidebar = () => {
+const DashSidebar = ({ isOpen = false, dispatch = null }) => {
   const { pathname } = useLocation();
 
+  const { currentUser } = useUserSelector();
+  const { image, username } = currentUser;
   const { userInfo } = useAuthSelector();
-  const { image, username } = userInfo;
+
+  const handleOpenSidebar = () => {
+    dispatch(toggleSidebar());
+  };
 
   return (
     <div className="dash__sidebar background-gradient">
-      <div className="sidebar__inner">
+      <span
+        className={`burger ${isOpen ? "close" : ""}`}
+        onClick={handleOpenSidebar}
+      >
+        <div className="first"></div>
+        <div className="second"></div>
+        <div className="third"></div>
+      </span>
+      <div className={`sidebar__inner ${isOpen ? "active" : ""}`}>
         <div className="sidebar__items">
           <h1>Brand</h1>
           <ul>
@@ -35,7 +55,7 @@ const DashSidebar = () => {
                 <span>
                   <HomeIcon />
                 </span>
-                Home
+                <p className="m-0 fw-400">Home</p>
               </Link>
             </li>
             <li className={COURSE_REGEX.test(pathname) ? "active" : ""}>
@@ -43,15 +63,25 @@ const DashSidebar = () => {
                 <span>
                   <SchoolIcon />
                 </span>
-                Courses
+                <p className="m-0 fw-400">Courses</p>
               </Link>
             </li>
+            {userInfo.role === ROLE.STUDENT && (
+              <li className={GRADES_REGEX.test(pathname) ? "active" : ""}>
+                <Link to={"/user/grades"}>
+                  <span>
+                    <ViewListIcon />
+                  </span>
+                  <p className="m-0 fw-400">Your Grades</p>
+                </Link>
+              </li>
+            )}
             <li className={PROFILE_REGEX.test(pathname) ? "active" : ""}>
               <Link to={"/user/profile"}>
                 <span>
                   <PersonIcon />
                 </span>
-                Profile
+                <p className="m-0 fw-400">Profile</p>
               </Link>
             </li>
           </ul>

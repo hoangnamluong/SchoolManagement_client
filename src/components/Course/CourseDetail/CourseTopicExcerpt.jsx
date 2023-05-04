@@ -1,16 +1,24 @@
-import format from "date-fns/format";
 import { dateParsedShortDate } from "../../../utils/dateParse";
 import shortenName from "../../../utils/shortenName";
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSelectedTopic } from "../../../features/topic/topicSlice";
+
+const TOPIC_REGEX = /topic/i;
 
 const CourseTopicExcerpt = ({ topic }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const parseCreatedDate = dateParsedShortDate(topic.created_date);
   const name = shortenName(topic.author.first_name, topic.author.last_name);
 
   const handleRowOnClicked = () => {
-    navigate(`topic/${topic.id}`);
+    const path = TOPIC_REGEX.test(location.pathname);
+
+    dispatch(setSelectedTopic({ topic }));
+    navigate(path ? `${topic.id}` : `topic/${topic.id}`);
   };
 
   return (
@@ -19,7 +27,7 @@ const CourseTopicExcerpt = ({ topic }) => {
         <td>{topic.title}</td>
         <td>{name}</td>
         <td>{parseCreatedDate}</td>
-        <td>{topic.comments.length}</td>
+        {/* <td>{topic.comments.length}</td> */}
       </tr>
     )
   );

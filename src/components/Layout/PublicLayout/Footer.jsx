@@ -5,7 +5,6 @@ import Facebook from "../../../assets/svg/facebook-color-svgrepo-com.svg";
 import Google from "../../../assets/svg/google-color-svgrepo-com.svg";
 import Youtube from "../../../assets/svg/youtube-color-svgrepo-com.svg";
 import Instagram from "../../../assets/svg/instagram-2016-logo-svgrepo-com.svg";
-import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -17,18 +16,21 @@ const Footer = () => {
         <div className="footer__contact">
           <p className="fw-400">Contact Us</p>
           <div className="footer__contact-icon">
-            <Link>
+            <a
+              href="https://www.facebook.com/photo/?fbid=1197728193951834&set=pob.100011439946066"
+              target="_blank"
+            >
               <img src={Facebook} />
-            </Link>
-            <Link>
+            </a>
+            <a>
               <img src={Google} />
-            </Link>
-            <Link>
+            </a>
+            <a>
               <img src={Youtube} />
-            </Link>
-            <Link>
+            </a>
+            <a>
               <img src={Instagram} />
-            </Link>
+            </a>
           </div>
         </div>
       </div>

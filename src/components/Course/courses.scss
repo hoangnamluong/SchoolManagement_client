@@ -1,9 +1,9 @@
 @import "../../assets/variables";
 .courses-list {
-  display: flex;
-  gap: 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  grid-gap: 40px;
   justify-content: space-between;
-  flex-wrap: wrap;
 
   .course {
     cursor: pointer;

@@ -1,12 +1,30 @@
 @import "../../assets/variables";
 
+.logout {
+  cursor: pointer;
+  display: block;
+  margin: 10px 0 0 0;
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+
+  svg {
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
 .to-top-btn {
   position: fixed;
   bottom: 5px;
   right: 5px;
   width: 40px;
   height: 40px;
-  padding: 0;
+  padding: 0 !important;
   opacity: 0;
 
   &.show {
@@ -30,5 +48,27 @@
     display: block;
     margin: 0 20px;
     color: #aaa;
+  }
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background-color: $complementary;
+
+  input {
+    border: none;
+    outline: none;
+    flex: 1;
+    background-color: transparent;
+
+    &:focus {
+      border: none;
+      outline: none;
+    }
   }
 }

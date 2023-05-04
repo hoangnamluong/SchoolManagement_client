@@ -2,42 +2,23 @@ import "./topicDetail.scss";
 
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { selectTopicById } from "../../../features/topic/topicSlice";
+import { selectSelectedTopic } from "../../../features/topic/topicSlice";
 import { selectCourseById } from "../../../features/course/courseSlice";
 import useAuthSelector from "../../../hooks/Selectors/useAuthSelector";
-import { useEffect } from "react";
 
+//components
 import TopicDetailExcerpt from "../../../components/Topic/TopicDetailExcerpt";
-import TopicComment from "../../../components/Topic/TopicComment";
 import TopicCommentForm from "../../../components/Topic/TopicCommentForm";
 import Avatar from "../../../components/User/Avatar";
+import TopicComments from "../../../components/Topic/TopicComments";
 
 const TopicDetail = () => {
-  const { topicId, courseId } = useParams();
+  const { courseId } = useParams();
 
   const { userInfo } = useAuthSelector();
 
-  const topic = useSelector((state) => selectTopicById(state, topicId));
+  const { topic } = useSelector(selectSelectedTopic);
   const course = useSelector((state) => selectCourseById(state, courseId));
-
-  useEffect(() => {
-    console.log(topic);
-  }, []);
-
-  const commentsRendered = topic.comments ? (
-    topic.comments.length > 0 &&
-    topic.comments.map((comment) => (
-      <TopicComment
-        key={comment.id}
-        comment={comment}
-        topicTitle={topic.title}
-      />
-    ))
-  ) : (
-    <p>Be the first one to reply</p>
-  );
-
-  console.log(course);
 
   return (
     topic &&
@@ -46,13 +27,13 @@ const TopicDetail = () => {
         <div className="topic-detail__inner">
           <div className="topic-detail__title">
             <p className="m-0">
-              {course.subject.id + " - " + course.subject.name}
+              {course && course.subject.id + " - " + course.subject.name}
             </p>
-            <h2>{topic.title}</h2>
+            <h1>{topic.title}</h1>
           </div>
           <div className="topic-detail__comments">
             <TopicDetailExcerpt topic={topic} />
-            {commentsRendered}
+            <TopicComments topic={topic} />
           </div>
           <div className="topic-comment__form">
             <div className="form__title">
@@ -64,7 +45,7 @@ const TopicDetail = () => {
                 </p>
               </div>
             </div>
-            <TopicCommentForm />
+            <TopicCommentForm topic={topic} />
           </div>
         </div>
       </div>

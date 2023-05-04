@@ -1,0 +1,50 @@
+@import "../../../assets/variables";
+
+.course-members__list {
+  width: 100%;
+  margin-top: 24px;
+
+  td,
+  th {
+    padding: 10px;
+  }
+
+  tr {
+    border-bottom: 1px solid #aaa;
+  }
+
+  thead {
+    position: relative;
+
+    th {
+      color: $complementary;
+    }
+
+    &::before {
+      position: absolute;
+      content: "";
+      width: 100%;
+      height: 100%;
+      background-color: $primary-sub;
+      border-radius: 10px 10px 0 0;
+      z-index: -1;
+    }
+  }
+
+  tbody {
+    .course-members__table-item {
+      &:hover {
+        background-color: #ddd;
+      }
+
+      td:last-child {
+        max-width: 50px;
+        gap: 10px;
+
+        img {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

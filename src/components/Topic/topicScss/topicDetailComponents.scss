@@ -1,4 +1,4 @@
-@import "../../assets/variables";
+@import "../../../assets/variables";
 
 .topic-detail__comment {
   position: relative;
@@ -19,7 +19,8 @@
     justify-content: space-between;
 
     .title__inner {
-      display: flex;
+      display: grid;
+      grid-template-columns: 50px auto;
       gap: 20px;
 
       .title__content {
@@ -41,11 +42,64 @@
   .topic-detail-comment__content {
     margin-top: 14px;
   }
+
+  .topic-detail-comment__action {
+    text-align: right;
+
+    img {
+      cursor: pointer;
+    }
+  }
+
+  .topic-detail-comment__edit {
+    div {
+      .input-container {
+        display: block;
+        text-align: right;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 16px;
+        margin-bottom: 0;
+
+        &::before {
+          border: none;
+        }
+
+        textarea {
+          width: 100%;
+          outline: none;
+          border: none;
+          font-family: $roboto;
+
+          &:focus {
+            outline: none;
+          }
+
+          &::-webkit-scrollbar {
+            width: 3px;
+          }
+        }
+
+        .actions {
+          display: inline-flex;
+
+          img {
+            cursor: pointer;
+            border-radius: 50%;
+            margin: 0 10px;
+          }
+        }
+      }
+    }
+  }
 }
 
 .topic-comment__form {
   form {
     .input-container {
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 16px;
       margin-bottom: 0;
 
       &::before {

@@ -1,12 +1,10 @@
 import { useState } from "react";
-import axiosClient from "../app/api/axiosClient";
-import useAuthSelector from "../hooks/Selectors/useAuthSelector";
+import { axiosPrivate } from "../app/api/axiosClient";
+
 import RESPONSE_STATUS from "../config/RESPONSE_STATUS";
 import axios from "axios";
 
 const useAxiosLazy = ({ url = "", method = "", options = {} }) => {
-  const { accessToken } = useAuthSelector();
-
   const [data, setData] = useState([]);
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
@@ -27,20 +25,14 @@ const useAxiosLazy = ({ url = "", method = "", options = {} }) => {
       let result = null;
 
       if (method !== "get") {
-        result = await axiosClient[method](url, body, {
+        result = await axiosPrivate[method](url, body, {
           ...options,
           cancelToken: cancelToken.token,
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
         });
       } else {
-        result = await axiosClient.get(url, {
+        result = await axiosPrivate.get(url, {
           ...options,
           cancelToken: cancelToken.token,
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
         });
       }
 

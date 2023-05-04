@@ -1,5 +1,5 @@
 import Avatar from "../User/Avatar";
-import "./topicDetailComponents.scss";
+import "./topicScss/topicDetailComponents.scss";
 import { dateParsedLongDateTime } from "../../utils/dateParse";
 
 const TopicDetailExcerpt = ({ topic }) => {

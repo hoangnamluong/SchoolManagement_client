@@ -13,11 +13,17 @@ import {
 import authReducer from "../features/auth/authSlice";
 import courseReducer from "../features/course/courseSlice";
 import topicReducer from "../features/topic/topicSlice";
+import chatReducer from "../features/chat/chatSlice";
+import userReducer from "../features/user/userSlice";
+import gradeReducer from "../features/grade/gradeSlice";
 
 const appReducer = combineReducers({
   auth: authReducer,
   course: courseReducer,
   topic: topicReducer,
+  chat: chatReducer,
+  user: userReducer,
+  grade: gradeReducer,
 });
 
 const rootReducer = (state, action) => {
@@ -48,5 +54,5 @@ export default configureStore({
       },
     }),
 
-  devTools: true,
+  devTools: false,
 });

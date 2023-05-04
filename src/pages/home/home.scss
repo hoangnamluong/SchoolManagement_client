@@ -5,7 +5,8 @@
 
   .home__hero {
     position: relative;
-    min-height: 100dvh;
+    min-height: 80dvh;
+    max-height: 95dvh;
 
     .home__inner {
       .hero__content {
@@ -56,10 +57,15 @@
         bottom: 10dvh;
       }
 
-      svg {
+      img {
         position: absolute;
         color: $complementary;
         font-size: 3em;
+
+        &.icon {
+          width: auto;
+          height: 70px;
+        }
       }
     }
   }

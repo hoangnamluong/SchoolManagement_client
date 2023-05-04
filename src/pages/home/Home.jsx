@@ -1,13 +1,5 @@
 import "./home.scss";
 
-//material icon
-import AutoStoriesIcon from "@mui/icons-material/AutoStories";
-import BiotechIcon from "@mui/icons-material/Biotech";
-import ScienceIcon from "@mui/icons-material/Science";
-import PsychologyAltIcon from "@mui/icons-material/PsychologyAlt";
-import ComputerIcon from "@mui/icons-material/Computer";
-import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
-
 //svg
 import Image1 from "../../assets/svg/undraw_learning_re_32qv.svg";
 import Image2 from "../../assets/svg/undraw_knowledge_re_5v9l.svg";
@@ -18,6 +10,12 @@ import Creativity from "../../assets/svg/creativity-svgrepo-com.svg";
 import Logic from "../../assets/svg/puzzle-svgrepo-com.svg";
 import Activity from "../../assets/svg/football-svgrepo-com.svg";
 import Health from "../../assets/svg/google-fit-svgrepo-com.svg";
+import CreativityIcon from "../../assets/svg/creativity.svg";
+import EduCapIcon from "../../assets/svg/educap.svg";
+import BiologyIcon from "../../assets/svg/biology.svg";
+import ComputerIcon from "../../assets/svg/computer.svg";
+import MathIcon from "../../assets/svg/math.svg";
+import SportIcon from "../../assets/svg/sport.svg";
 
 //built-in hooks and components
 import { Link } from "react-router-dom";
@@ -123,12 +121,36 @@ const Home = () => {
 
   const iconRender = (
     <>
-      <AutoStoriesIcon style={{ top: "25dvh", left: "60dvw" }} />
-      <BiotechIcon style={{ top: "70dvh", left: "25dvw" }} />
-      <ComputerIcon style={{ top: "55dvh", left: "80dvw" }} />
-      <PrecisionManufacturingIcon style={{ top: "15dvh", left: "30dvw" }} />
-      <ScienceIcon style={{ top: "50dvh", left: "5dvw" }} />
-      <PsychologyAltIcon style={{ top: "60dvh", left: "60dvw" }} />
+      <img
+        className="icon"
+        src={EduCapIcon}
+        style={{ top: "25dvh", left: "60dvw", transform: "rotate(10deg)" }}
+      />
+      <img
+        className="icon"
+        src={CreativityIcon}
+        style={{ top: "70dvh", left: "25dvw", transform: "rotate(9deg)" }}
+      />
+      <img
+        className="icon"
+        src={BiologyIcon}
+        style={{ top: "15dvh", left: "30dvw", transform: "rotate(17deg)" }}
+      />
+      <img
+        className="icon"
+        src={ComputerIcon}
+        style={{ top: "45dvh", left: "5dvw", transform: "rotate(-7deg)" }}
+      />
+      <img
+        className="icon"
+        src={MathIcon}
+        style={{ top: "55dvh", left: "80dvw", transform: "rotate(-14deg)" }}
+      />
+      <img
+        className="icon"
+        src={SportIcon}
+        style={{ top: "60dvh", left: "60dvw", transform: "rotate(68deg)" }}
+      />
     </>
   );
 
@@ -155,9 +177,9 @@ const Home = () => {
           <div className="hero__content">
             <h1>Brand</h1>
             <p>{text}</p>
-            <Link to="/signup">
+            {/* <Link>
               <button className="secondary-btn">GET STARTED</button>
-            </Link>
+            </Link> */}
           </div>
           {heroImageRender}
           {iconRender}

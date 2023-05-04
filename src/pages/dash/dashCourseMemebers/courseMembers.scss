@@ -1,0 +1,25 @@
+@import "../../../assets/variables";
+
+.course-members {
+  .course-members__inner {
+    .course-members__title {
+      h1 {
+        position: relative;
+
+        &::before {
+          position: absolute;
+          content: "";
+          width: 50px;
+          height: 3px;
+          background-color: $primary;
+          bottom: -5px;
+          left: 0;
+        }
+      }
+    }
+
+    .course-members__search {
+      margin-top: 24px;
+    }
+  }
+}

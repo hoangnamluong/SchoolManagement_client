@@ -1,0 +1,210 @@
+@import "../../assets/variables";
+
+.students__list {
+  width: 100%;
+  margin-top: 8px;
+
+  td,
+  th {
+    padding: 10px;
+  }
+
+  tr {
+    border-bottom: 1px solid #aaa;
+  }
+
+  thead {
+    position: relative;
+
+    th {
+      color: $complementary;
+
+      &:nth-child(2) {
+        min-width: 300px;
+      }
+    }
+
+    &::before {
+      position: absolute;
+      content: "";
+      width: 100%;
+      height: 100%;
+      background-color: $primary-sub;
+      border-radius: 10px 10px 0 0;
+      z-index: -1;
+    }
+  }
+
+  tbody {
+    .students__table-item {
+      cursor: pointer;
+
+      td:first-child {
+        width: 140px;
+      }
+
+      td:nth-child(n + 3) {
+        min-width: 70px;
+      }
+
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+  }
+}
+
+.grading-actions_button {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 64px;
+
+  .import-export-action {
+    button {
+      display: block;
+      margin-bottom: 16px;
+    }
+  }
+
+  .grading-final-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .lock-btn {
+      div {
+        display: flex;
+        align-items: end;
+        justify-content: center;
+        gap: 8px;
+      }
+    }
+  }
+
+  button {
+    height: fit-content;
+  }
+}
+
+.grading-form {
+  margin-top: 16px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 1fr 40px;
+  gap: 16px;
+
+  .grading-form__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .grading-form__inputs {
+    .grading-input__container {
+      position: relative;
+      margin-bottom: 16px;
+      display: grid;
+      grid-template-columns: 180px 2fr;
+      align-items: center;
+
+      &.editable {
+        input {
+          border: 1px solid #999;
+        }
+      }
+
+      .mid-term {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 5px;
+      }
+
+      input {
+        flex: 1;
+        padding: 5px;
+        width: 100%;
+        height: 100%;
+        border: 1px solid #ccc;
+        border-radius: 12px;
+      }
+
+      label {
+        flex: 1;
+        background-color: #fff;
+      }
+    }
+  }
+}
+
+.import-csv-form {
+  height: 20rem;
+  width: 100%;
+  text-align: center;
+  position: relative;
+
+  .drag-mask {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 50px);
+    top: 0;
+    left: 0;
+  }
+
+  input {
+    display: none;
+  }
+
+  label {
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 50px);
+    width: 100%;
+    border-radius: 12px;
+    border: 2px dashed #999;
+    background-color: #f8fafc;
+    transition: $ease-in-out;
+
+    &.drag-active {
+      border: 2px dashed $primary;
+      transition: $ease-in-out;
+    }
+
+    .uploaded-file {
+      color: #000;
+      font-weight: bold;
+    }
+
+    button {
+      cursor: pointer;
+      display: inline;
+      margin: 0;
+      font-weight: 400;
+      background-color: transparent;
+
+      &:focus-visible {
+        text-decoration: underline;
+        color: #000;
+        border: none;
+        outline: none;
+      }
+
+      &:hover {
+        text-decoration: underline;
+        color: #000;
+      }
+    }
+  }
+
+  button {
+    display: block;
+    margin-left: auto;
+    margin-top: 8px;
+  }
+}

@@ -1,19 +1,19 @@
 import ProfileForm from "../../../components/User/ProfileForm";
-import useAuthSelector from "../../../hooks/Selectors/useAuthSelector";
+import useUserSelector from "../../../hooks/Selectors/useUserSelector";
 import "./profileManagement.scss";
 
 const ProfileManagement = () => {
-  const { userInfo } = useAuthSelector();
+  const { currentUser } = useUserSelector();
 
   return (
     <div className="profile-management">
       <div className="profile-management__inner">
         <div className="profile-management__title">
-          <h2>Profile Management</h2>
+          <h1>Profile Management</h1>
         </div>
         <div className="profile-management__user">
-          <div style={{ backgroundImage: `url(${userInfo.image})` }}></div>
-          <h4>{userInfo.username}</h4>
+          <div style={{ backgroundImage: `url(${currentUser.image})` }}></div>
+          <h4>{currentUser.username}</h4>
         </div>
         <div className="profile-management__form">
           <ProfileForm />

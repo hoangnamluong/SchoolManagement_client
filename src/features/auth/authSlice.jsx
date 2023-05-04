@@ -3,7 +3,6 @@ import axiosClient from "../../app/api/axiosClient";
 import apiEndpoints from "../../config/apiEndpoints";
 import RESPONSE_STATUS from "../../config/RESPONSE_STATUS";
 import Cookies from "js-cookie";
-import { add } from "date-fns";
 import { setUser } from "../user/userSlice";
 
 const ONE_HOUR = 1 / 24;
@@ -107,11 +106,15 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action) => {
-      const { access_token } = action.payload;
+      const { access_token, refresh_token, user_info } = action.payload;
 
-      if (access_token) {
-        state.access_token = access_token;
-      }
+      state.access_token = access_token;
+      state.user_info = user_info;
+      Cookies.set("refresh_token", refresh_token, {
+        expires: ONE_HOUR,
+        secure: true,
+      });
+      state.refresh_status = "fulfilled";
     },
 
     logout: (state, action) => {
