@@ -53,6 +53,8 @@ const ProfileForm = () => {
     if (!form) return;
 
     dispatch(updateCurrentUser(form));
+
+    avatarRef.current.value = "";
   };
 
   const handleKeyDown = (e) => {

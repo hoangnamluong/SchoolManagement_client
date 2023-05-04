@@ -65,6 +65,10 @@
         }
       }
 
+      select:focus + label {
+        font-weight: 400;
+      }
+
       input:focus + label {
         font-weight: 400;
       }
