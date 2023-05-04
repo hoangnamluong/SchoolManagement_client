@@ -46,7 +46,7 @@ const GradingAction = () => {
         <button
           className="error-btn w-100 lock-btn"
           onClick={handleLockGrade}
-          disabled={gradeLock === "LOCKED"}
+          disabled={status === "pending" || gradeLock === "LOCKED"}
         >
           <div>
             {status === "pending" ? (
