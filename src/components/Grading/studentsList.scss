@@ -150,7 +150,7 @@
   .drag-mask {
     position: absolute;
     width: 100%;
-    height: calc(100% - 50px);
+    height: calc(100% - 70px);
     top: 0;
     left: 0;
   }
@@ -164,7 +164,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: calc(100% - 50px);
+    height: calc(100% - 70px);
     width: 100%;
     border-radius: 12px;
     border: 2px dashed #999;
@@ -205,6 +205,6 @@
   button {
     display: block;
     margin-left: auto;
-    margin-top: 8px;
+    margin: 8px 0 8px auto;
   }
 }
