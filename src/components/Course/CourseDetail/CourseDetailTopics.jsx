@@ -30,7 +30,7 @@ const CourseDetailTopics = () => {
   }, []);
 
   const topicsTable =
-    status === "fulfilled" && topics.length > 0 ? (
+    topics.length > 0 ? (
       <table className="course-topics__table">
         <thead>
           <tr>

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { selectSelectedTopic } from "../../../features/topic/topicSlice";
 import { selectCourseById } from "../../../features/course/courseSlice";
-import useAuthSelector from "../../../hooks/Selectors/useAuthSelector";
+import useUserSelector from "../../../hooks/Selectors/useUserSelector";
 
 //components
 import TopicDetailExcerpt from "../../../components/Topic/TopicDetailExcerpt";
@@ -15,7 +15,7 @@ import TopicComments from "../../../components/Topic/TopicComments";
 const TopicDetail = () => {
   const { courseId } = useParams();
 
-  const { userInfo } = useAuthSelector();
+  const { currentUser } = useUserSelector();
 
   const { topic } = useSelector(selectSelectedTopic);
   const course = useSelector((state) => selectCourseById(state, courseId));
@@ -37,9 +37,9 @@ const TopicDetail = () => {
           </div>
           <div className="topic-comment__form">
             <div className="form__title">
-              <Avatar img={userInfo.image} />
+              <Avatar img={currentUser.image} />
               <div className="title__content">
-                <h5>{userInfo.username}</h5>
+                <h5>{currentUser.username}</h5>
                 <p>
                   Answer To: <b>{topic.title}</b>
                 </p>

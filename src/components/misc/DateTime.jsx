@@ -1,8 +1,10 @@
-import format from "date-fns/format";
+import Moment from "react-moment";
 
 const DateTime = ({ timestamp, ...args }) => {
   return timestamp ? (
-    <p {...args}>{format(Date.parse(timestamp), "dd MMM yyyy")}</p>
+    <Moment format="DD-MM-yyyy" {...args}>
+      {timestamp}
+    </Moment>
   ) : (
     <p {...args}>Unknown Date</p>
   );

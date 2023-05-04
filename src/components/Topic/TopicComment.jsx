@@ -1,14 +1,11 @@
-import { dateParsedLongDateTime } from "../../utils/dateParse";
-
 import Avatar from "../User/Avatar";
 import EditIcon from "../../assets/svg/edit.svg";
 import { useState } from "react";
 import TopicCommentEditForm from "./TopicCommentEditForm";
+import Moment from "react-moment";
 
 const TopicComment = ({ comment, userId, topicTitle }) => {
   const [edit, setEdit] = useState(false);
-
-  const createdAt = dateParsedLongDateTime(comment.created_date);
 
   const loggedUser = userId === comment.user.id;
 
@@ -29,7 +26,9 @@ const TopicComment = ({ comment, userId, topicTitle }) => {
               </p>
             </div>
           </div>
-          <p>{createdAt}</p>
+          <Moment format="dddd DD-MMMM-yyyy HH:mm:ss">
+            {comment.created_date}
+          </Moment>
         </div>
         {!edit ? (
           <div className="topic-detail-comment__content">

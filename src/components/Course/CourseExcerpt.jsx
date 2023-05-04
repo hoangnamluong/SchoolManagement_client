@@ -1,16 +1,18 @@
-import LayersIcon from "@mui/icons-material/Layers";
-import SchoolIcon from "@mui/icons-material/School";
-
+import ClockIcon from "../../assets/svg/clock.svg";
+import SchoolIcon from "../../assets/svg/teacher.svg";
 import ITPic from "../../assets/img/luca-bravo-XJXWbfSo2f0-unsplash.png";
-
 import Wave from "../../assets/svg/wave.svg";
-import shortenName from "../../utils/shortenName";
+
+import Moment from "react-moment";
+
 import { useNavigate } from "react-router-dom";
+
+import shortenName from "../../utils/shortenName";
 
 const CourseExcerpt = ({ course }) => {
   const navigate = useNavigate();
 
-  const { course_class, subject, teacher } = course;
+  const { course_class, subject, teacher, start_date } = course;
 
   const fullname = shortenName(teacher.user.first_name, teacher.user.last_name);
 
@@ -28,12 +30,16 @@ const CourseExcerpt = ({ course }) => {
           <p>{course_class.faculty.name}</p>
           <h3>{subject.name}</h3>
         </div>
-        <p className="d-flex">
+        <p className="d-flex course-content__info">
           <span>
-            <LayersIcon /> 12 lessons
+            <img src={ClockIcon} width={20} height={20} />
+            <Moment locale="vi" format="DD-MMM-yyyy">
+              {start_date}
+            </Moment>
           </span>
           <span>
-            <SchoolIcon /> {fullname}
+            <img src={SchoolIcon} width={20} height={20} />
+            {fullname}
           </span>
         </p>
       </div>

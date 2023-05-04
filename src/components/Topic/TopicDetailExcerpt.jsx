@@ -1,10 +1,8 @@
+import Moment from "react-moment";
 import Avatar from "../User/Avatar";
 import "./topicScss/topicDetailComponents.scss";
-import { dateParsedLongDateTime } from "../../utils/dateParse";
 
 const TopicDetailExcerpt = ({ topic }) => {
-  const createdAt = dateParsedLongDateTime(topic.created_date);
-
   return (
     topic && (
       <div className="topic-detail__comment">
@@ -18,7 +16,9 @@ const TopicDetailExcerpt = ({ topic }) => {
               </p>
             </div>
           </div>
-          <p>{createdAt}</p>
+          <Moment format="dddd DD-MMMM-yyyy HH:mm:ss">
+            {topic.created_date}
+          </Moment>
         </div>
         <div className="topic-detail-comment__content">
           <p className="fw-400">{topic.content}</p>

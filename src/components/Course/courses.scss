@@ -51,8 +51,21 @@
       padding: 0 20px;
       justify-content: space-between;
 
+      .course-content__info {
+        span {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          img {
+            aspect-ratio: 1;
+          }
+        }
+      }
+
       & > p {
-        gap: 100px;
+        justify-content: space-between;
+        white-space: nowrap;
 
         svg {
           color: $primary;

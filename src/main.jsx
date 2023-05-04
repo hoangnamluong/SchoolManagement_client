@@ -9,6 +9,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 
+import "moment/locale/vi";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import store from "./app/store";
 
