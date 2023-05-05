@@ -11,10 +11,10 @@ const RequiredAuth = () => {
 
   let content = null;
   if (!Cookies.get("refresh_token")) {
-    toast.info("Please login again");
+    toast.info("Please login again.");
     content = <Navigate to={"/login"} replace={true} />;
   } else if (!persist && !accessToken) {
-    toast.info("If you want to stay logged in please tick Remember me");
+    toast.info("If you want to stay logged in please tick Remember me.");
     content = <Navigate to={"/login"} replace={true} />;
   } else if (
     status === "pending" ||

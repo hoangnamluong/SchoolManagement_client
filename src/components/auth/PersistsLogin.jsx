@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 
@@ -31,6 +31,8 @@ const PersistsLogin = () => {
     let isMounted = true;
 
     if (runOnce.current) return;
+
+    if (!Cookies.get("refresh_token")) toast.info("Please login again.");
 
     const refreshToken = () => {
       try {
@@ -78,6 +80,12 @@ const PersistsLogin = () => {
   //   content = <Outlet />;
   // }
 
-  return isLoading ? <SpinnerComponent /> : <Outlet />;
+  return !Cookies.get("refresh_token") ? (
+    <Navigate to={"/login"} replace={true} />
+  ) : isLoading ? (
+    <SpinnerComponent />
+  ) : (
+    <Outlet />
+  );
 };
 export default PersistsLogin;
