@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../../app/api/axiosClient";
 import apiEndpoints from "../../config/apiEndpoints";
 import RESPONSE_STATUS from "../../config/RESPONSE_STATUS";
-import useAuthSelector from "../../hooks/Selectors/useAuthSelector";
 
 const initialState = {
   course_id: 0,
@@ -19,17 +18,11 @@ export const getAllTopic = createAsyncThunk(
   "/topic",
   async (arg, { getState, rejectWithValue }) => {
     try {
-      const { accessToken } = useAuthSelector();
       const { data, status } = await axiosPrivate.get(
         arg?.url ||
           apiEndpoints.course.concat(
             `${arg.courseId}/topic/?page=${arg?.page || 1}`
-          ),
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
+          )
       );
 
       if (RESPONSE_STATUS.some((i) => i === status)) {

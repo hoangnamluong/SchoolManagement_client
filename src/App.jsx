@@ -4,7 +4,6 @@ import { ToastContainer } from "react-toastify";
 
 import { CommentProvider } from "./context/CommentContext";
 import { SidebarProvider } from "./context/SidebarContext";
-import setupAxiosPrivate from "./config/setupAxiosPrivate";
 
 //pages
 import Home from "./pages/home/Home";
@@ -43,8 +42,6 @@ const VerifySuccessPage = lazy(() => import("./pages/misc/VerifySuccessPage"));
 const VerifyFailedPage = lazy(() => import("./pages/misc/VerifyFailedPage"));
 
 function App() {
-  setupAxiosPrivate();
-
   return (
     <>
       <ToastContainer

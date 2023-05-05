@@ -18,6 +18,8 @@ import { Provider } from "react-redux";
 
 import { disableReactDevTools } from "@fvilers/disable-react-devtools";
 
+import setupAxiosPrivate from "./config/setupAxiosPrivate";
+
 if (process.env.NODE_ENV === "production") {
   disableReactDevTools();
 }
@@ -37,3 +39,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </Provider>
   </React.StrictMode>
 );
+
+setupAxiosPrivate();

@@ -171,7 +171,6 @@ const gradeSlice = createSlice({
       })
       .addCase(updateGrade.fulfilled, (state, action) => {
         state.status = "fulfilled";
-        state.students = action.payload;
         state.error = "";
         state.selected_student = null;
       })
