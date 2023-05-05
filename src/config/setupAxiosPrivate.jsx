@@ -55,9 +55,7 @@ const setupAxiosPrivate = () => {
               })
             );
 
-            prevRequest.headers["Authorization"] = `Bearer ${
-              store.getState().auth.access_token
-            }`;
+            prevRequest.headers["Authorization"] = `Bearer ${access_token}`;
           }
 
           return axiosPrivate(prevRequest);
