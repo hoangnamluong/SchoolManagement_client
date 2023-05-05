@@ -35,7 +35,7 @@ const TopicCommentEditForm = ({
   const onUpdateComment = () => {
     if (!comment) return;
 
-    const comm = comment.trim().replace(/\s+/g, " ");
+    const comm = comment.trim();
 
     const form = convertObjectToFormData({
       content: comm,

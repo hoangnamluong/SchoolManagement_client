@@ -24,9 +24,8 @@ const Topics = () => {
         <div className="mt-4 text-end">
           <TopicAdd />
         </div>
-        <div>
-          <TopicsList />
-        </div>
+
+        <TopicsList />
       </div>
     </div>
   );

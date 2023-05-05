@@ -2,10 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../../app/api/axiosClient";
 import apiEndpoints from "../../config/apiEndpoints";
 import RESPONSE_STATUS from "../../config/RESPONSE_STATUS";
+import useAuthSelector from "../../hooks/Selectors/useAuthSelector";
 
 const initialState = {
   course_id: 0,
-  topics: [],
+  topics: null,
+  page: 1,
+  first_five: [],
   selectedTopic: null,
   status: "idle",
   // add_status: "idle",
@@ -16,8 +19,17 @@ export const getAllTopic = createAsyncThunk(
   "/topic",
   async (arg, { getState, rejectWithValue }) => {
     try {
+      const { accessToken } = useAuthSelector();
       const { data, status } = await axiosPrivate.get(
-        apiEndpoints.course.concat(`${arg.courseId}/topic/`)
+        arg?.url ||
+          apiEndpoints.course.concat(
+            `${arg.courseId}/topic/?page=${arg?.page || 1}`
+          ),
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
       );
 
       if (RESPONSE_STATUS.some((i) => i === status)) {
@@ -73,7 +85,7 @@ const topicSlice = createSlice({
     },
 
     appendAddedTopic: (state, action) => {
-      state.topics = [...state.topics, action.payload];
+      state.topics.results = [...state.topics.results, action.payload];
     },
 
     setCourseId: (state, action) => {
@@ -83,6 +95,22 @@ const topicSlice = createSlice({
     clearCourseId: (state, action) => {
       state.course_id = 0;
     },
+
+    setFirstFive: (state, action) => {
+      state.first_five = [...action.payload.topics];
+    },
+
+    resetPage: (state, action) => {
+      state.page = 1;
+    },
+
+    incPage: (state, action) => {
+      state.page = ++state.page;
+    },
+
+    descPage: (state, action) => {
+      state.page = --state.page;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -91,7 +119,7 @@ const topicSlice = createSlice({
       })
       .addCase(getAllTopic.fulfilled, (state, action) => {
         state.status = "fulfilled";
-        state.topics = [...action.payload.results];
+        state.topics = action.payload;
         state.error = "";
       })
       .addCase(getAllTopic.rejected, (state, action) => {
@@ -117,10 +145,16 @@ export const {
   appendAddedTopic,
   setCourseId,
   clearCourseId,
+  setFirstFive,
+  resetPage,
+  descPage,
+  incPage,
 } = topicSlice.actions;
 
 export const selectCourseId = (state) => state.topic.course_id;
 export const selectTopics = (state) => state.topic.topics;
+export const selectPage = (state) => state.topic.page;
+export const selectFiveTopics = (state) => state.topic.first_five;
 export const selectSelectedTopic = (state) => state.topic.selectedTopic;
 export const selectStatus = (state) => state.topic.status;
 // export const selectAddStatus = (state) => state.topic.add_status;

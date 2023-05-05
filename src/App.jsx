@@ -24,7 +24,6 @@ import TopicDetail from "./pages/dash/dashTopic/TopicDetail";
 import SpinnerComponent from "./components/misc/SpinnerComponent";
 import RequiredRole from "./components/auth/RequiredRole";
 import ROLE from "./data/ROLE";
-import GradePage from "./pages/dash/dashGrade/GradePage";
 
 //lazy
 const ProfileManagement = lazy(() =>
@@ -37,7 +36,7 @@ const CourseMembers = lazy(() =>
   import("./pages/dash/dashCourseMemebers/CourseMembers")
 );
 const GradingPage = lazy(() => import("./pages/dash/dashGrading/GradingPage"));
-const GragePage = lazy(() => import("./pages/dash/dashGrade/GradePage"));
+const GradePage = lazy(() => import("./pages/dash/dashGrade/GradePage"));
 const Topics = lazy(() => import("./pages/dash/dashTopic/Topics"));
 const PageNotFound = lazy(() => import("./pages/misc/PageNotFound"));
 const VerifySuccessPage = lazy(() => import("./pages/misc/VerifySuccessPage"));

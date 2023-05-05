@@ -42,7 +42,9 @@ const TopicComment = ({ comment, userId, topicTitle }) => {
         </div>
         {!edit ? (
           <div className="topic-detail-comment__content">
-            <p className="fw-400">{comment.content}</p>
+            <p className="fw-400" style={{ whiteSpace: "pre-line" }}>
+              {comment.content}
+            </p>
           </div>
         ) : (
           <div className="topic-detail-comment__edit">

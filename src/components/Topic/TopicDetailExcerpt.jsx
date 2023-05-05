@@ -30,7 +30,9 @@ const TopicDetailExcerpt = ({ topic }) => {
           <p className="fw-400">{createdDate}</p>
         </div>
         <div className="topic-detail-comment__content">
-          <p className="fw-400">{topic.content}</p>
+          <p className="fw-400" style={{ whiteSpace: "pre-line" }}>
+            {topic.content}
+          </p>
         </div>
       </div>
     )

@@ -19,7 +19,14 @@
     }
 
     .grading__students {
+      position: relative;
+
       .grading__actions {
+        background-color: #fff;
+        position: sticky;
+        bottom: 10px;
+        left: 0;
+        border-radius: 10px;
         display: grid;
         grid-template-columns: 1fr 50px 1fr;
       }

@@ -2,7 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import CourseTopicExcerpt from "./CourseTopicExcerpt";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getAllTopic, setCourseId } from "../../../features/topic/topicSlice";
+import {
+  getAllTopic,
+  resetPage,
+  setCourseId,
+  setFirstFive,
+} from "../../../features/topic/topicSlice";
 import useTopicSelector from "../../../hooks/Selectors/useTopicSelector";
 
 const CourseDetailTopics = () => {
@@ -14,7 +19,7 @@ const CourseDetailTopics = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const { courseId: prevCourseId, topics, status, error } = useTopicSelector();
+  const { courseId: prevCourseId, topics, fiveTopics } = useTopicSelector();
 
   useEffect(() => {
     if (runOnce.current) return;
@@ -22,6 +27,7 @@ const CourseDetailTopics = () => {
     if (prevCourseId !== courseId) {
       dispatch(setCourseId({ courseId }));
       dispatch(getAllTopic({ courseId }));
+      dispatch(resetPage());
     }
 
     return () => {
@@ -29,8 +35,14 @@ const CourseDetailTopics = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (topics) {
+      dispatch(setFirstFive({ topics: topics.results.slice(0, 5) }));
+    }
+  }, [topics]);
+
   const topicsTable =
-    topics.length > 0 ? (
+    fiveTopics && fiveTopics.length > 0 ? (
       <table className="course-topics__table">
         <thead>
           <tr>
@@ -40,7 +52,7 @@ const CourseDetailTopics = () => {
           </tr>
         </thead>
         <tbody>
-          {topics.slice(0, 5).map((topic) => (
+          {fiveTopics.map((topic) => (
             <CourseTopicExcerpt topic={topic} key={topic.id} />
           ))}
         </tbody>

@@ -1,0 +1,27 @@
+@import "../../../assets/variables";
+
+.topics-table {
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .topics-table__pagination {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+
+    & > button {
+      width: auto;
+      height: auto;
+      padding: 0;
+      aspect-ratio: 1;
+
+      img {
+        width: 40px;
+        height: 40px;
+        aspect-ratio: 1;
+      }
+    }
+  }
+}

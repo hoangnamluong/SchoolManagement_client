@@ -26,7 +26,7 @@ const TopicCommentForm = ({ topic }) => {
 
     if (!comment) return;
 
-    const comm = comment.trim().replace(/\s+/g, " ");
+    const comm = comment.trim();
 
     const form = new FormData();
     form.append("content", comm);
