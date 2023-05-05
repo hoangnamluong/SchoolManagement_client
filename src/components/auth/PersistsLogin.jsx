@@ -52,16 +52,7 @@ const PersistsLogin = () => {
       }
     };
 
-    if (
-      !accessToken &&
-      refreshStatus === "idle" &&
-      persist &&
-      Cookies.get("refresh_token")
-    ) {
-      refreshToken();
-    } else {
-      navigate("/login", { replace: true });
-    }
+    if (!accessToken && refreshStatus === "idle" && persist) refreshToken();
 
     return () => {
       runOnce.current = true;
