@@ -10,9 +10,7 @@ const Footer = () => {
   return (
     <div className="footer">
       <div className="footer__inner">
-        <div className="footer__copy-right">
-          &#169; Mot Minh T Coporation - Dung la t dum
-        </div>
+        <div className="footer__copy-right">&#169; Liu Liu Coporation</div>
         <div className="footer__contact">
           <p className="fw-400">Contact Us</p>
           <div className="footer__contact-icon">
