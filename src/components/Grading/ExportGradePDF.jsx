@@ -78,24 +78,30 @@ const ExportGradePDF = () => {
         <Text style={[{ minWidth: "100px" }, styles.tableColumn]}>
           {studentInfo.code}
         </Text>
-        <Text style={[{ minWidth: "200px" }, styles.tableColumn]}>{name}</Text>
-        <Text style={[{ minWidth: "70px" }, styles.tableColumn]}>
+        <Text style={[{ minWidth: "150px" }, styles.tableColumn]}>{name}</Text>
+        <Text style={[{ minWidth: "50px" }, styles.tableColumn]}>
           {finalMark ? finalMark.value : ""}
         </Text>
-        <Text style={[{ minWidth: "30px" }, styles.tableColumn]}>
+        <Text style={[{ minWidth: "34px" }, styles.tableColumn]}>
           {midMarks[0] ? midMarks[0].value : ""}
         </Text>
-        <Text style={[{ minWidth: "30px" }, styles.tableColumn]}>
+        <Text style={[{ minWidth: "34px" }, styles.tableColumn]}>
           {midMarks[1] ? midMarks[1].value : ""}
         </Text>
-        <Text style={[{ minWidth: "30px" }, styles.tableColumn]}>
+        <Text style={[{ minWidth: "34px" }, styles.tableColumn]}>
           {midMarks[2] ? midMarks[2].value : ""}
         </Text>
-        <Text style={[{ minWidth: "30px" }, styles.tableColumn]}>
+        <Text style={[{ minWidth: "34px" }, styles.tableColumn]}>
           {midMarks[3] ? midMarks[3].value : ""}
         </Text>
-        <Text style={[{ minWidth: "30px" }, styles.tableColumn]}>
+        <Text style={[{ minWidth: "34px" }, styles.tableColumn]}>
           {midMarks[4] ? midMarks[4].value : ""}
+        </Text>
+        <Text style={[{ minWidth: "60px" }, styles.tableColumn]}>
+          {student.mark_s10}
+        </Text>
+        <Text style={[{ minWidth: "60px" }, styles.tableColumn]}>
+          {student.mark_s4}
         </Text>
       </View>
     );
@@ -112,14 +118,20 @@ const ExportGradePDF = () => {
             <Text style={[{ minWidth: "100px" }, styles.tableColumn]}>
               Student ID
             </Text>
-            <Text style={[{ minWidth: "200px" }, styles.tableColumn]}>
+            <Text style={[{ minWidth: "150px" }, styles.tableColumn]}>
               Full Name
             </Text>
-            <Text style={[{ minWidth: "70px" }, styles.tableColumn]}>
+            <Text style={[{ minWidth: "50px" }, styles.tableColumn]}>
               Final
             </Text>
-            <Text style={[{ minWidth: "200px" }, styles.tableColumn]}>
+            <Text style={[{ minWidth: "170px" }, styles.tableColumn]}>
               Midterm
+            </Text>
+            <Text style={[{ minWidth: "60px" }, styles.tableColumn]}>
+              GPA-10
+            </Text>
+            <Text style={[{ minWidth: "60px" }, styles.tableColumn]}>
+              GPA-4
             </Text>
           </View>
           {students.mark_list.map((student) => (

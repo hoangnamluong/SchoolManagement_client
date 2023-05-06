@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   getAllTopic,
+  getFiveTopic,
   resetPage,
   setCourseId,
   setFirstFive,
@@ -27,6 +28,7 @@ const CourseDetailTopics = () => {
     if (prevCourseId !== courseId) {
       dispatch(setCourseId({ courseId }));
       dispatch(getAllTopic({ courseId }));
+      dispatch(getFiveTopic({ courseId }));
       dispatch(resetPage());
     }
 
@@ -34,12 +36,6 @@ const CourseDetailTopics = () => {
       runOnce.current = true;
     };
   }, []);
-
-  useEffect(() => {
-    if (topics) {
-      dispatch(setFirstFive({ topics: topics.results.slice(0, 5) }));
-    }
-  }, [topics]);
 
   const topicsTable =
     fiveTopics && fiveTopics.length > 0 ? (

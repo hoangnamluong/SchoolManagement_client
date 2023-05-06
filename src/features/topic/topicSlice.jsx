@@ -14,6 +14,28 @@ const initialState = {
   error: "",
 };
 
+export const getFiveTopic = createAsyncThunk(
+  "/topic/top_5",
+  async (arg, { getState, rejectWithValue }) => {
+    try {
+      const { data, status } = await axiosPrivate.get(
+        apiEndpoints.course.concat(`${arg.courseId}/topic/?page=1`)
+      );
+
+      if (RESPONSE_STATUS.some((i) => i === status)) {
+        return data;
+      }
+    } catch (err) {
+      console.log(err);
+      if (err.response && err.response.data.error_description) {
+        return rejectWithValue(err.response.data.error_description);
+      } else {
+        return rejectWithValue(err.message);
+      }
+    }
+  }
+);
+
 export const getAllTopic = createAsyncThunk(
   "/topic",
   async (arg, { getState, rejectWithValue }) => {
@@ -116,6 +138,18 @@ const topicSlice = createSlice({
         state.error = "";
       })
       .addCase(getAllTopic.rejected, (state, action) => {
+        state.status = "error";
+        state.error = action.payload;
+      })
+      .addCase(getFiveTopic.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(getFiveTopic.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        state.first_five = action.payload.results.slice(0, 5);
+        state.error = "";
+      })
+      .addCase(getFiveTopic.rejected, (state, action) => {
         state.status = "error";
         state.error = action.payload;
       });

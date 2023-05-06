@@ -25,7 +25,15 @@ const ChatExistsChat = ({ chat }) => {
         <Avatar img={user.image} username={user.username} />
         <div>
           <p className="fw-400">{user.email}</p>
-          <p className="fw-300">
+          <p
+            className="fw-300"
+            style={{
+              whiteSpace: "nowrap",
+              textOverflow: "ellipsis",
+              maxWidth: "250px",
+              overflow: "hidden",
+            }}
+          >
             {latest &&
               (latest.sender.id === currentUser.id
                 ? "You"
