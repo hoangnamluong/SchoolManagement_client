@@ -104,9 +104,9 @@ const LoginForm = () => {
           required
           placeholder="Username"
           onKeyDown={handleKeyDown}
-          // onPaste={(e) => e.preventDefault()}
-          // onCopy={(e) => e.preventDefault()}
-          // onCut={(e) => e.preventDefault()}
+          onPaste={(e) => e.preventDefault()}
+          onCopy={(e) => e.preventDefault()}
+          onCut={(e) => e.preventDefault()}
         />
       </div>
       <div className="input-container mb-1">
@@ -118,9 +118,9 @@ const LoginForm = () => {
           required
           placeholder="Password"
           onKeyDown={handleKeyDown}
-          // onPaste={(e) => e.preventDefault()}
-          // onCopy={(e) => e.preventDefault()}
-          // onCut={(e) => e.preventDefault()}
+          onPaste={(e) => e.preventDefault()}
+          onCopy={(e) => e.preventDefault()}
+          onCut={(e) => e.preventDefault()}
         />
       </div>
       <div className="login-extra-actions disable-select">
